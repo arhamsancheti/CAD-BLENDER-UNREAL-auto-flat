@@ -1,0 +1,64 @@
+# Secrets & Local Configuration
+config.json
+.env
+.env.*
+
+# Python Bytecode & Virtual Environments
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+env/
+ENV/
+dist/
+build/
+*.egg-info/
+
+# Runtime Uploads & Generated Exports (keep .gitkeep placeholders)
+uploads/*
+!uploads/.gitkeep
+output/*
+!output/.gitkeep
+backups/
+
+# Blender Auto-Save Backups
+*.blend1
+*.blend2
+
+# OS & Editor Metadata
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Local Root Scratch / Debug Artifacts
+/3bhkwwww.blend
+/Untitled.blend
+/newww.blend
+/architectural_data.json
+/flat_4bhk*
+/test_4bhk_slice.dxf
+/debug_*
+/crop_*
+/preview_*
+/target_*
+/box_zoomed.png
+/icon_zoomed.png
+/clean_flat_preview.png
+/connected_preview_3bhk.png
+/final_verified_canvas.png
+/flat_cluster1_detailed.png
+/floor_plan_preview.png
+/other_layers_preview.png
+/build_flat_in_blender.py
+/extract_flat_data.py
+/inspect_cad_texts.py
+/inspect_wall_thickness.py
+/run_blender_measure.py
+/test_blender_run.py
+/test_perfect_architecture.py

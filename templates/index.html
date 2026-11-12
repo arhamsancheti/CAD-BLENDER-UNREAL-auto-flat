@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CAD to Blender Wall Extractor</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',sans-serif;background:#1a1a2e;color:#e0e0e0;min-height:100vh}
+.container{max-width:1150px;margin:0 auto;padding:28px 18px}
+h1{text-align:center;font-size:2.1rem;margin-bottom:6px}
+.sub{text-align:center;color:#8a8aa5;margin-bottom:26px}
+.card{background:#16213e;border:1px solid #22305a;border-radius:14px;padding:22px;margin-bottom:20px}
+.card h2{font-size:1.05rem;color:#e94560;margin-bottom:14px}
+.drop{border:2px dashed #2b4a85;border-radius:12px;padding:40px 16px;text-align:center;cursor:pointer;transition:.2s}
+.drop:hover,.drop.over{border-color:#e94560;background:rgba(233,69,96,.07)}
+.drop .big{font-size:2.6rem}.drop .fn{color:#e94560;font-weight:600;margin-top:8px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px}
+label{display:block;font-size:.82rem;color:#9aa;margin-bottom:5px}
+input,select{width:100%;padding:10px;border-radius:8px;border:1px solid #22305a;background:#0f1630;color:#eee}
+.btn{border:0;border-radius:10px;padding:13px 30px;font-size:1rem;font-weight:600;cursor:pointer;color:#fff;background:#e94560}
+.btn:disabled{opacity:.45;cursor:not-allowed}.btn.alt{background:#0f3460}.btn.alt:hover{background:#1a4a80}
+.row{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+.stat{background:#0f1630;border-radius:10px;padding:16px;text-align:center}
+.stat b{display:block;font-size:2rem;color:#e94560}.stat span{font-size:.78rem;color:#8a8aa5}
+.steps div{padding:7px 10px;border-left:3px solid #1b7a3e;background:#0f1630;margin-bottom:6px;border-radius:0 6px 6px 0;font-size:.88rem}
+.steps div b{color:#7fe0a0;margin-right:8px}
+.warn{background:rgba(255,193,7,.1);border-left:3px solid #ffc107;color:#ffd54f;padding:9px 12px;border-radius:6px;margin-bottom:6px;font-size:.86rem}
+.err{background:rgba(233,69,96,.12);border-left:3px solid #e94560;color:#ff9fb0;padding:12px;border-radius:6px;font-size:.92rem}
+canvas{width:100%;height:480px;background:#0b1024;border-radius:10px}
+table{width:100%;border-collapse:collapse;font-size:.82rem}
+th,td{padding:6px 8px;text-align:right;border-bottom:1px solid #22305a}
+th:first-child,td:first-child,th:nth-child(2),td:nth-child(2){text-align:left}
+th{color:#9aa;position:sticky;top:0;background:#16213e}
+.tw{max-height:360px;overflow:auto}
+pre{background:#0b1024;border-radius:10px;padding:14px;max-height:300px;overflow:auto;font-size:.78rem;color:#9ab}
+.ext{color:#e94560}.int{color:#4aa3ff}.hidden{display:none}
+.spin{display:inline-block;width:16px;height:16px;border:2px solid #fff6;border-top-color:#fff;border-radius:50%;animation:s .7s linear infinite;vertical-align:middle;margin-left:8px}
+@keyframes s{to{transform:rotate(360deg)}}
+.lyr{display:inline-block;width:260px;font-size:.8rem;color:#cde;margin:2px 0}.lyr input{width:auto;margin-right:5px}.lyr span{color:#778}
+.lays{max-height:260px;overflow:auto;background:#0f1630;border-radius:8px;padding:10px}
+.badge{display:inline-block;padding:3px 9px;border-radius:6px;font-size:.75rem;font-weight:700;letter-spacing:.3px}
+.badge.PASS{background:rgba(46,204,113,.18);color:#55efc4;border:1px solid rgba(46,204,113,.45)}
+.badge.WARN{background:rgba(255,193,7,.16);color:#ffeaa7;border:1px solid rgba(255,193,7,.45)}
+.badge.FAIL{background:rgba(233,69,96,.2);color:#ff7675;border:1px solid rgba(233,69,96,.5)}
+.btn.sm{padding:6px 12px;font-size:.78rem;border-radius:6px}
+.unc-box{background:#0f1630;border:1px solid #3a2352;border-left:4px solid #e056fd;border-radius:8px;padding:10px 14px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
+</style>
+</head>
+<body>
+<div class="container">
+<h1>🧱 CAD to Blender Wall Extractor</h1>
+<p class="sub">Upload a DXF/DWG, 3D FBX model, or PNG/JPG floor plan image → walls are scanned, connected, validated, and turned into a Blender script</p>
+
+<div class="card">
+  <h2>1 · Upload CAD file or Floor Plan Image</h2>
+  <div class="drop" id="drop"><div class="big">📐</div>
+    <div>Drag &amp; drop a <b>.dxf</b>, <b>.dwg</b>, <b>.fbx</b>, <b>.png / .jpg</b> floor plan, a <b>PDF</b> or a <b>Word .docx / .doc</b> document here, or click to browse</div>
+    <div style="font-size:.78rem;color:#667;margin-top:6px">DXF, DWG, 3D FBX, PNG / JPG / WEBP plan images, and Word documents (plan picture or DXF inside + written specification &amp; room schedule) all supported</div>
+    <div class="fn" id="fn"></div></div>
+  <input type="file" id="file" accept=".dxf,.dwg,.fbx,.png,.jpg,.jpeg,.webp,.bmp,.pdf,.docx,.docm,.dotx,.dotm,.doc,.rtf,.odt" class="hidden">
+  <div style="margin-top:14px;padding-top:12px;border-top:1px solid #22305a;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px">
+    <div>
+      <label style="margin-bottom:2px;color:#cde;font-weight:600">Optional Supporting Reference Files (2D Floor Plans, CAD, or 3D FBX/OBJ/GLB Models)</label>
+      <div style="font-size:.78rem;color:#8a8aa5">Used to validate wall boundaries, confirm washrooms/rooms, or calibrate scale while keeping the source plan as primary authority.</div>
+    </div>
+    <div>
+      <input type="file" id="refInp" multiple accept=".dxf,.dwg,.fbx,.obj,.glb,.gltf,.png,.jpg,.jpeg,.webp,.bmp" style="max-width:310px;padding:6px">
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <h2>2 · Settings</h2>
+  <div class="grid">
+    <div><label>Wall height (mm)</label><input type="number" id="h" value="3000"></div>
+    <div><label>Fallback wall thickness (mm)</label><input type="number" id="t" value="200"></div>
+    <div><label>Drawing units</label><select id="u">
+      <option value="auto">Auto detect</option><option value="millimeters">Millimeters</option>
+      <option value="centimeters">Centimeters</option><option value="meters">Meters</option>
+      <option value="inches">Inches</option><option value="feet">Feet</option></select></div>
+    <div><label>Connection tolerance (mm, blank = auto)</label><input type="number" id="connTol" placeholder="Auto from scale"></div>
+    <div><label>Reference authority mode</label><select id="refMode">
+      <option value="validate">Source primary (validate &amp; enrich)</option>
+      <option value="calibrate">Calibrate scale from reference</option>
+      <option value="authoritative">Reference is authoritative design</option></select></div>
+  </div>
+  <div class="row"><button class="btn" id="go" disabled>🚀 Scan &amp; convert</button><span id="busy" class="hidden">Processing file… <b id="sec">0s</b> elapsed (large 3D models take 1–2 min to slice)<i class="spin"></i></span></div>
+</div>
+
+<div id="error" class="card hidden"></div>
+
+<div id="res" class="hidden">
+  <div class="card"><h2>3 · Scan result</h2>
+    <div class="stats">
+      <div class="stat"><b id="n">0</b><span>Total walls</span></div>
+      <div class="stat"><b id="ne" class="ext">0</b><span>Exterior walls · <u id="nel"></u> m</span></div>
+      <div class="stat"><b id="ni" class="int">0</b><span>Interior walls · <u id="nil"></u> m</span></div>
+      <div class="stat"><b id="len">0</b><span>Total wall length (m)</span></div>
+      <div class="stat"><b id="nop">0</b><span>Sill/lintel pieces (openings)</span></div>
+      <div class="stat"><b id="nskirt">0</b><span>Skirting runs (76.2 mm)</span></div>
+      <div class="stat"><b id="ntiles">0</b><span>Washrooms (2x3 tiles)</span></div>
+      <div class="stat"><b id="fa">-</b><span>Floor slab area</span></div>
+      <div class="stat"><b id="ch">3.0 m</b><span>Ceiling slab height</span></div>
+      <div class="stat"><b id="size">-</b><span>Plan size (m)</span></div>
+    </div></div>
+  <div class="card"><h2>Pipeline steps</h2><div class="steps" id="steps"></div><div id="warns" style="margin-top:10px"></div></div>
+
+  <div class="card hidden" id="docCard">
+    <h2>Word document - what was read and applied</h2>
+    <div id="docBody" style="font-size:.86rem;line-height:1.5"></div>
+  </div>
+
+  <div class="card hidden" id="revCard">
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:10px">
+      <h2 style="margin-bottom:0">🔍 Detection Review, Connectivity &amp; Automated Validation</h2>
+      <div id="revBadges" style="display:flex;gap:8px;flex-wrap:wrap"></div>
+    </div>
+    <p style="font-size:.82rem;color:#9aa;margin-bottom:10px">
+      Left: Original source plan · Right: Detected walls (<b style="color:#3cdc50">green</b>), repaired connections (<b style="color:#00dcff">cyan</b>), doors (<b style="color:#ffa028">orange</b>), windows (<b style="color:#ffc832">sky-blue</b>), and uncertain gaps (<b style="color:#ff32dc">magenta</b>). Clear cases are repaired automatically; ambiguous gaps are left open for review below.
+    </p>
+    <img id="revImg" style="width:100%;border-radius:8px;background:#111;margin-bottom:14px;border:1px solid #22305a">
+    <div id="uncWrap" class="hidden" style="margin-bottom:14px">
+      <h3 style="font-size:.92rem;color:#e056fd;margin-bottom:8px">⚠ Uncertain Gaps Left Open (Click to Override)</h3>
+      <div id="uncList"></div>
+    </div>
+    <div class="tw" style="max-height:290px">
+      <table>
+        <thead><tr><th>Status</th><th>Automated Check</th><th>Count</th><th style="text-align:left">Details</th></tr></thead>
+        <tbody id="revTb"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card hidden" id="refCard">
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:10px">
+      <h2 style="margin-bottom:0">📚 Multi-Reference Comparison &amp; Validation</h2>
+      <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+        <input type="file" id="addRefInp" multiple accept=".dxf,.dwg,.fbx,.obj,.glb,.gltf,.png,.jpg,.jpeg,.webp,.bmp" style="width:240px;padding:5px;font-size:.78rem">
+        <button class="btn alt sm" id="addRefBtn">+ Compare Reference</button>
+      </div>
+    </div>
+    <div id="refBody"></div>
+  </div>
+
+  <div class="card"><h2>&#129302; AI wall check (Gemini) - automatic</h2>
+    <p style="font-size:.84rem;color:#9aa;margin-bottom:10px">After every scan the AI works in two stages: (1) it reviews the whole plan in zoomed views to find wrong and missing walls, (2) it looks at a close-up image of every single wall and classifies it (wall / column / door swing / window / furniture / stair / artifact). A piece is removed only when the signals agree; missed walls are added only when they snap onto real CAD wall lines. Every added wall is snapped exactly onto real CAD wall lines; clean wall rectangles from the CAD are protected and never deleted. The Gemini key is built in - nothing to paste.</p>
+    <div class="row" style="margin-top:0"><button class="btn alt" id="aiGo">&#128260; Run AI check again</button><button class="btn alt hidden" id="aiUndo">&#8617; Undo AI changes</button>
+      <span id="aiBusy" class="hidden">AI is checking every wall (about 1-3 min)<i class="spin"></i></span></div>
+    <div id="aiOut" style="margin-top:10px;font-size:.86rem;color:#ffd54f"></div></div>
+  <div class="card" id="segCard"><h2>&#129504; Image segmentation &amp; recognition <span style="font-weight:400;color:#889">(blue = wall bands, pastel = rooms, orange = detected walls, magenta = possible missed walls sent to AI)</span></h2>
+    <div id="segSum" style="font-size:.86rem;margin-bottom:8px"></div><img id="segImg" style="width:100%;border-radius:6px;background:#222"></div>
+  <div class="card">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;flex-wrap:wrap;gap:8px">
+      <h2 style="margin-bottom:0">📐 2D Floor Plan, Room Floors &amp; Glass Railings</h2>
+      <div style="font-size:.78rem;color:#8a8aa5;display:flex;gap:12px;flex-wrap:wrap">
+        <span><i style="display:inline-block;width:12px;height:12px;background:#e94560;border-radius:2px;vertical-align:middle;margin-right:4px"></i>Exterior Walls</span>
+        <span><i style="display:inline-block;width:12px;height:12px;background:#4aa3ff;border-radius:2px;vertical-align:middle;margin-right:4px"></i>Interior Walls</span>
+        <span><i style="display:inline-block;width:12px;height:12px;background:#00e5ff;border-radius:2px;vertical-align:middle;margin-right:4px"></i>Balcony Glass Railing (1.2 m)</span>
+        <span><i style="display:inline-block;width:12px;height:12px;background:#2dd4bf;border-radius:2px;vertical-align:middle;margin-right:4px"></i>Windows &amp; Glass</span>
+        <span><i style="display:inline-block;width:12px;height:12px;background:#fbbf24;border-radius:2px;vertical-align:middle;margin-right:4px"></i>Door Lintels</span>
+        <span><i style="display:inline-block;width:12px;height:12px;background:#d99b52;border-radius:2px;vertical-align:middle;margin-right:4px"></i>Balcony Floor</span>
+        <span><i style="display:inline-block;width:12px;height:12px;background:#a86c38;border-radius:2px;vertical-align:middle;margin-right:4px"></i>Master Wood Floor</span>
+        <span><i style="display:inline-block;width:12px;height:12px;background:#818cf8;border-radius:2px;vertical-align:middle;margin-right:4px"></i>Entrance Floor</span>
+        <span><i style="display:inline-block;width:12px;height:12px;background:#e2d6b9;border-radius:2px;vertical-align:middle;margin-right:4px"></i>Common Floor (Hall/Kitchen/Bed)</span>
+        <span><i style="display:inline-block;width:12px;height:12px;background:#0ea5e9;border-radius:2px;vertical-align:middle;margin-right:4px"></i>Washroom Tiles</span>
+        <span><i style="display:inline-block;width:12px;height:12px;background:#a78bfa;border-radius:2px;vertical-align:middle;margin-right:4px"></i>Skirting (76.2 mm)</span>
+      </div>
+    </div>
+    <canvas id="cv" style="width:100%;height:560px;background:#0b1024;border-radius:10px"></canvas>
+  </div>
+  <div class="card"><h2>🏠 Room Floors, Skirting, Window Glass &amp; Balcony Glass Railings</h2>
+    <div class="tw"><table><thead><tr>
+      <th>Room</th><th>Classified Use</th><th>Area (m²)</th><th>Floor Mesh</th><th>Floor Material</th><th>Skirting / Wall Tiles</th><th>Windows &amp; Balcony Glass Railings</th></tr></thead><tbody id="roomTb"></tbody></table></div>
+  </div>
+  <div class="card"><h2>Wall data</h2><div class="tw"><table><thead><tr>
+    <th>ID</th><th>Type</th><th>X1</th><th>Y1</th><th>X2</th><th>Y2</th><th>Length</th><th>Thickness</th><th>Base</th><th>Height</th><th>Image</th><th>AI check</th></tr></thead><tbody id="tb"></tbody></table></div></div>
+  <div class="card"><h2>4 · Blender script &amp; Unreal Engine / 3ds Max export</h2>
+    <div class="row" style="margin:0 0 12px"><button class="btn" id="exp3d">🎮 Build 3D &amp; export for Unreal + 3ds Max (.fbx)</button>
+      <button class="btn alt" id="outerBtn">🧱 Add Outer Boundary Walls</button>
+      <button class="btn alt" id="dl">⬇ Download Blender script (.py)</button>
+      <button class="btn alt" id="cp">📋 Copy script</button>
+      <button class="btn alt" id="dj">Wall data JSON</button><button class="btn alt" id="dc">Wall data CSV</button>
+      <span id="outerBusy" class="hidden">Adding boundary walls…<i class="spin"></i></span>
+      <span id="expBusy" class="hidden">Building the full 3D model in Blender and exporting… <b id="expSec">0s</b><i class="spin"></i></span></div>
+    <div id="expOut" style="margin:0 0 12px;font-size:.86rem"></div>
+    <p style="font-size:.84rem;color:#9aa;margin-bottom:10px">In Blender: <b>Scripting</b> tab → <b>Open</b> the script → <b>Run Script</b>. The model is organised in 01_Structure (walls, floor slab, ceiling, recessed ceilings, wall panels) … 07_Kitchen, and the script also writes <b>*_Unreal.fbx</b>, <b>*_3dsMax.fbx</b> and a <b>.blend</b> to Documents\CAD_Blender_Exports (or next to your saved .blend).</p>
+    <pre id="code"></pre></div>
+</div>
+</div>
+
+<script>
+const $=id=>document.getElementById(id);let file=null,cur=null,autoMap={};
+const drop=$('drop'),inp=$('file');
+drop.onclick=()=>inp.click();
+drop.ondragover=e=>{e.preventDefault();drop.classList.add('over')};
+drop.ondragleave=()=>drop.classList.remove('over');
+drop.ondrop=e=>{e.preventDefault();drop.classList.remove('over');pick(e.dataTransfer.files[0])};
+inp.onchange=()=>pick(inp.files[0]);
+function pick(f){if(!f)return;if(!/\.(dxf|dwg|fbx|png|jpg|jpeg|webp|bmp|docx|docm|dotx|dotm|doc|rtf|odt|pdf)$/i.test(f.name.trim())){const m=f.name.match(/\.[^.]+$/);alert('"'+(m?m[0]:f.name)+'" files are not supported.\nSupported files: .dxf / .dwg / .fbx / .png / .jpg / .webp / .bmp / .pdf / Word .docx / .doc');return}
+ file=f;$('fn').textContent='📄 '+f.name+' ('+(f.size/1048576).toFixed(1)+' MB)';$('go').disabled=false}
+
+let scanTimer=null,secElapsed=0;
+$('go').onclick=async()=>{
+ $('go').disabled=true;$('busy').classList.remove('hidden');$('error').classList.add('hidden');$('res').classList.add('hidden');
+ secElapsed=0;$('sec').textContent='0s';
+ clearInterval(scanTimer);
+ scanTimer=setInterval(()=>{secElapsed++;$('sec').textContent=secElapsed+'s'},1000);
+ const fd=new FormData();fd.append('file',file);fd.append('wall_height',$('h').value);
+ fd.append('default_thickness',$('t').value);fd.append('source_units',$('u').value);
+ if($('connTol').value) fd.append('conn_tol',$('connTol').value);
+ fd.append('reference_mode',$('refMode').value);
+ const rfiles=$('refInp').files||[];
+ for(let i=0;i<rfiles.length;i++) fd.append('references',rfiles[i]);
+ try{
+  const r=await fetch('/upload',{method:'POST',body:fd});
+  let d;
+  try{
+   const txt=await r.text();
+   d=JSON.parse(txt);
+  }catch(e){
+   throw new Error('Server returned an invalid response (HTTP '+r.status+'): '+e.message);
+  }
+  if(!r.ok){showErr(d);return}
+  cur=d;aiLabels={};show(d);
+ }catch(e){showErr({error:e.message})}
+ finally{clearInterval(scanTimer);$('go').disabled=false;$('busy').classList.add('hidden')}
+};
+function showErr(d){const e=$('error');e.classList.remove('hidden');
+ e.innerHTML='<h2>⚠ Could not process file</h2><div class="err"></div>';e.querySelector('.err').textContent=d.error||'Unknown error'}
+
+async function overrideGap(u,action){
+ if(!cur)return;
+ const p0=u.p0||u.xy||[0,0], p1=u.p1||u.xy||[0,0];
+ const payload={job_id:cur.job_id,gap_overrides:[{id:u.id,action:action,x1:p0[0],y1:p0[1],x2:p1[0],y2:p1[1],t:u.thickness||200}]};
+ const r=await fetch('/edit',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
+ const d=await r.json();
+ if(r.ok){cur=d;show(d);}else alert(d.error||'Could not apply override');
+}
+
+$('addRefBtn').onclick=async()=>{
+ if(!cur)return;
+ const rf=$('addRefInp').files||[];
+ if(!rf.length){alert('Select one or more reference files first.');return;}
+ const fd=new FormData();fd.append('job_id',cur.job_id);fd.append('reference_mode',$('refMode').value);
+ for(let i=0;i<rf.length;i++) fd.append('references',rf[i]);
+ $('addRefBtn').disabled=true;
+ try{
+  const r=await fetch('/add_reference',{method:'POST',body:fd});
+  const d=await r.json();
+  if(r.ok){cur=d;show(d);}else alert(d.error||'Reference comparison failed');
+ }finally{$('addRefBtn').disabled=false;}
+};
+
+function esc(t){return String(t==null?'':t).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
+function showDoc(doc){
+ const card=$('docCard');
+ if(!doc){card.classList.add('hidden');return}
+ card.classList.remove('hidden');
+ const c=doc.counts||{}, sm=doc.schedule_match||{}, matched=sm.matched||[];
+ const byName={};matched.forEach(m=>byName[m.name]=m);
+ let h=`<div><b>${esc(doc.file)}</b> - ${c.paragraphs||0} paragraphs, ${c.tables||0} tables, ${c.pictures||0} pictures${c.cad?`, ${c.cad} CAD file(s)`:''}</div>`;
+ h+=`<div style="margin-top:6px"><b>Plan used:</b> ${esc(doc.plan_source)} (${esc(doc.plan_reason)})</div>`;
+ h+=`<div style="margin-top:8px"><b>Specification found in the text</b></div>`;
+ h+=(doc.spec_found&&doc.spec_found.length)?'<ul style="margin:4px 0 0 18px">'+doc.spec_found.map(s=>`<li>${esc(s)}</li>`).join('')+'</ul>':'<div style="color:#99a">No construction values written in the document - standard values used.</div>';
+ if(doc.applied&&doc.applied.length)h+=`<div style="margin-top:8px"><b>Applied to the model:</b> ${doc.applied.map(esc).join('; ')}</div>`;
+ if(doc.schedule&&doc.schedule.length){
+  h+=`<div style="margin-top:8px"><b>Room schedule</b>${sm.scale&&Math.abs(sm.scale-1)>1e-6?` (plan scale corrected x${sm.scale.toFixed(3)})`:''}</div>`;
+  h+='<table style="width:100%;margin-top:4px;font-size:.82rem"><tr><th style="text-align:left">Document room</th><th style="text-align:left">Size in document</th><th style="text-align:left">Placed on plan as</th><th style="text-align:left">Measured on plan</th></tr>';
+  h+=doc.schedule.map(e=>{const m=byName[e.name];const ds=e.w_mm?`${(e.w_mm/1000).toFixed(2)} x ${(e.l_mm/1000).toFixed(2)} m`:(e.area_m2?`${e.area_m2} m²`:'-');
+   return `<tr><td>${esc(e.name)}</td><td>${ds}</td><td style="color:${m?'#7fe0a0':'#f0a060'}">${m?esc(m.room):'not matched'}</td><td>${m?esc(m.plan_size):''}</td></tr>`}).join('');
+  h+='</table>';
+ }
+ if(doc.notes&&doc.notes.length)h+=`<div style="margin-top:8px;color:#99a">${doc.notes.map(esc).join('<br>')}</div>`;
+ $('docBody').innerHTML=h;
+}
+function drawingPicker(d){
+ const ds=d.drawings;
+ if(!ds||ds.length<2)return '';
+ const opts=ds.map(x=>`<option value="${x.index}" ${x.chosen?'selected':''}>Drawing #${x.index+1}: ${(x.w_mm/1000).toFixed(1)} × ${(x.h_mm/1000).toFixed(1)} m (${x.entities} entities)</option>`).join('');
+ return `<div class="warn" style="border-color:#4a90d9"><b>This file holds ${ds.length} separate drawings.</b> Plan being read: <select id="drawingSel" style="margin-left:6px">${opts}</select></div>`;
+}
+function show(d){
+ $('res').classList.remove('hidden');
+ $('n').textContent=d.wall_count;$('ne').textContent=d.exterior_count;$('ni').textContent=d.interior_count;$('nel').textContent=d.exterior_length_m;$('nil').textContent=d.interior_length_m;$('nop').textContent=d.opening_count;
+ $('nskirt').textContent=d.skirting_count || (d.skirting ? d.skirting.length : 0);
+ $('ntiles').textContent=d.washroom_count || (d.washroom_voids ? d.washroom_voids.length : 0);
+ $('fa').textContent=(d.floor_area_m2 || '-')+' m²';$('ch').textContent=(d.ceiling_height_m || '3.0')+' m';
+ $('len').textContent=d.info.total_length_m;$('size').textContent=(d.info.width_mm/1000).toFixed(1)+' × '+(d.info.depth_mm/1000).toFixed(1);
+ $('steps').innerHTML=d.steps.map(s=>`<div><b>${s.name}</b>${s.detail}</div>`).join('');
+ $('warns').innerHTML=d.warnings.map(w=>`<div class="warn">${w}</div>`).join('');
+ showDoc(d.document);
+ $('tb').innerHTML=d.walls.map(w=>`<tr><td>${w.id}</td><td class="${w.wall_type=='exterior'?'ext':'int'}">${w.kind=='wall'?w.wall_type:w.opening+' '+w.kind}</td><td>${w.x1}</td><td>${w.y1}</td><td>${w.x2}</td><td>${w.y2}</td><td>${w.length}</td><td>${w.thickness}</td><td>${w.base}</td><td>${w.height}</td><td>${segCell(w)}</td><td>${aiCell(w)}</td></tr>`).join('');
+ $('code').textContent=d.script;
+
+ const rv=d.review;
+ if(rv){
+  $('revCard').classList.remove('hidden');
+  const sm=rv.summary||{};
+  $('revBadges').innerHTML=
+   `<span class="badge PASS">${sm.PASS||0} PASS</span>`+
+   `<span class="badge WARN">${sm.WARN||0} WARN</span>`+
+   `<span class="badge FAIL">${sm.FAIL||0} FAIL</span>`+
+   `<span class="badge" style="background:#0f3460;color:#7fe0a0">${(rv.repairs||[]).length} Repaired Connections</span>`+
+   `<span class="badge" style="background:#2c1638;color:#e056fd">${(rv.uncertain||[]).length} Uncertain Gaps</span>`;
+  if(rv.png_b64){$('revImg').src='data:image/png;base64,'+rv.png_b64;$('revImg').classList.remove('hidden');}
+  else $('revImg').classList.add('hidden');
+  $('revTb').innerHTML=(rv.checks||[]).map(c=>`<tr><td><span class="badge ${c.status}">${c.status}</span></td><td><b>${c.title}</b></td><td>${c.count}</td><td style="text-align:left;color:#9ab">${c.detail||'OK'}</td></tr>`).join('');
+  const unc=rv.uncertain||[];
+  if(unc.length){
+   $('uncWrap').classList.remove('hidden');
+   $('uncList').innerHTML='';
+   unc.forEach(u=>{
+    const row=document.createElement('div');row.className='unc-box';
+    row.innerHTML=`<div><b style="color:#e056fd">${u.id}</b> · <b>${Math.round(u.width_mm)} mm</b> gap at (${Math.round(u.xy[0])}, ${Math.round(u.xy[1])}) — <span style="color:#9ab">${u.detail||''}</span></div><div style="display:flex;gap:6px;flex-wrap:wrap"></div>`;
+    const btns=row.querySelector('div:last-child');
+    [['Close as Wall','close_wall'],['Mark as Door','door'],['Mark as Window','window'],['Keep Open','keep_open']].forEach(([lbl,act])=>{
+     const b=document.createElement('button');b.className='btn alt sm';b.textContent=lbl;
+     b.onclick=()=>overrideGap(u,act);btns.appendChild(b);
+    });
+    $('uncList').appendChild(row);
+   });
+  }else $('uncWrap').classList.add('hidden');
+ }else $('revCard').classList.add('hidden');
+
+ const rf=d.references;
+ $('refCard').classList.remove('hidden');
+ if(rf && rf.results && rf.results.length){
+  $('refBody').innerHTML=rf.results.map(r=>{
+   if(!r.ok) return `<div class="warn">Reference <b>${r.name}</b>: ${r.error}</div>`;
+   const cf=(r.conflicts||[]).map(c=>`<div class="warn"><b>Conflict (${c.type}):</b> ${c.detail}<br><i>${c.question||''}</i></div>`).join('');
+   const rm=(r.room_matches||[]).map(m=>`<span style="display:inline-block;background:#0f1630;padding:4px 8px;border-radius:5px;margin:2px;font-size:.78rem"><b>${m.ref_room}</b> (${m.ref_area_m2} m²) ↔ <b>${m.src_room}</b> (${m.src_area_m2} m², ${m.src_type})</span>`).join('');
+   const img=r.png_b64?`<img src="data:image/png;base64,${r.png_b64}" style="width:100%;border-radius:8px;margin-top:8px;border:1px solid #22305a">`:'';
+   return `<div style="border-top:1px solid #22305a;padding-top:10px;margin-top:8px">
+     <div style="font-size:.9rem;margin-bottom:6px"><b>${r.name}</b> <span class="badge PASS">${r.source_type}</span> — ${r.summary}</div>
+     ${cf}
+     ${rm?`<div style="margin:6px 0">${rm}</div>`:''}
+     ${img}
+   </div>`;
+  }).join('');
+ }else{
+  $('refBody').innerHTML='<div style="font-size:.82rem;color:#8a8aa5">No reference files attached yet. Use "+ Compare Reference" above to compare against another floor plan, CAD drawing, or 3D FBX model.</div>';
+ }
+
+ SEG=d.segmentation||{};const sm=SEG.summary;
+ if(sm){$('segCard').classList.remove('hidden');$('segImg').src=SEG.png?'data:image/png;base64,'+SEG.png:'';
+  $('segSum').textContent=sm.rooms+' rooms found, '+sm.wall_bands+' wall bands; '+sm.confirmed_walls+' walls confirmed by the image, '+sm.weak_walls+' weak, '+sm.candidates+' possible missed walls checked by AI.'}
+ else $('segCard').classList.add('hidden');
+ const ops=d.openings||[];
+ $('roomTb').innerHTML=(d.rooms||[]).filter(r=>r.type!='external').map(r=>{
+  const rOps=ops.filter(o=>(o.rooms||[]).includes(r.name));
+  const gls=rOps.map(o=>{
+   if(o.balcony&&!o.dry_balcony) return `<span style="color:#00e5ff"><b>${o.id}</b>: 1.2m Balcony Glass Railing (${Math.round(o.width)}mm, MAT_Balcony_Glass)</span>`;
+   if(o.dry_balcony) return `<span style="color:#38bdf8"><b>${o.id}</b>: Dry Balcony Window + Glass (${Math.round(o.width)}mm, Window_Glass_Mat)</span>`;
+   if(o.type=='window'||o.type=='vent') return `<span style="color:#2dd4bf"><b>${o.id}</b>: ${o.type=='vent'?'Ventilator Frosted Glass (Ventilator_Frosted_Glass_Mat)':'Window Glass (Window_Glass_Mat)'} (${Math.round(o.width)}mm, ${o.sill}-${o.head}mm)</span>`;
+   return `<span style="color:#fbbf24">${o.id}: ${o.type} (${Math.round(o.width)}mm)</span>`;
+  }).join('<br>')||'—';
+  const fin=r.tile_obj?`<span style="color:#0ea5e9">${r.tile_obj} (Full-height 3.0m)</span>`:(r.skirt_obj?`<span style="color:#a78bfa">${r.skirt_obj} (${r.skirt_mat||''})</span>`:'—');
+  const dispTitle=r.display_name||r.label||r.use||'';
+  const dimSub=r.cad_dim?`<br><span style="color:#94a3b8;font-size:.75rem">📏 ${r.cad_dim}</span>`:'';
+  return `<tr><td><b>${r.name}</b><br><span style="color:#64748b;font-size:.74rem">${r.label||''}</span></td><td><b style="color:#f8fafc">${dispTitle}</b>${dimSub}</td><td>${r.area_m2}</td><td><b>${r.floor_obj||'— (shaft)'}</b></td><td>${r.floor_mat||'—'}</td><td>${fin}</td><td style="text-align:left">${gls}</td></tr>`;
+ }).join('');
+ draw(d.walls||[], d.outline||[], d.underlay||[], d.skirting||[], d.washroom_voids||[], d.rooms||[], d.openings||[], d.kitchens||[]);
+}
+
+let TR=null,drawW=[],drawO=[],drawU=[],drawS=[],drawV=[],drawR=[],drawOp=[],drawK=[],aiLabels={},SEG={};
+function segCell(w){if(w.kind!='wall')return '';const v=(SEG.support||{})[w.id];if(v==null)return '';
+ return `<span style="color:${v>=.5?'#7fe0a0':v>=.2?'#ffd54f':'#ffb74d'}">${Math.round(v*100)}%</span>`}
+function aiCell(w){if(w.layer=='MANUAL')return '<span style="color:#50e678">added by AI (snapped)</span>';const l=aiLabels[w.id];if(!l)return '';
+ const ok=l.label=='wall'||l.label=='column';return `<span style="color:${ok?'#7fe0a0':'#ffb74d'}">${l.label} ${Math.round(l.conf*100)}%</span>`}
+function draw(walls,outline,underlay,skirting,washrooms,rooms,openings,kitchens){
+ drawW=walls;drawO=outline;drawU=underlay||[];drawS=skirting||[];drawV=washrooms||[];
+ drawR=rooms||[];drawOp=openings||[];drawK=kitchens||[];redraw();
+}
+function redraw(){
+ const walls=drawW,outline=drawO,underlay=drawU,skirting=drawS,washrooms=drawV,rooms=drawR,openings=drawOp,kitchens=drawK;
+ const c=$('cv'),x=c.getContext('2d'),dpr=window.devicePixelRatio||1,r=c.getBoundingClientRect();
+ c.width=r.width*dpr;c.height=r.height*dpr;x.scale(dpr,dpr);const W=r.width,H=r.height;
+ let a=1e18,b=1e18,A=-1e18,B=-1e18;
+ walls.forEach(w=>(w.polygon||[]).forEach(p=>{a=Math.min(a,p[0]);A=Math.max(A,p[0]);b=Math.min(b,p[1]);B=Math.max(B,p[1])}));
+ (outline||[]).forEach(rg=>rg.forEach(p=>{a=Math.min(a,p[0]);A=Math.max(A,p[0]);b=Math.min(b,p[1]);B=Math.max(B,p[1])}));
+ if(a>A){a=0;A=1000;b=0;B=1000;}
+ const pad=36,s=Math.min((W-2*pad)/(A-a||1),(H-2*pad)/(B-b||1)),ox=(W-(A-a)*s)/2,oy=(H+(B-b)*s)/2;
+ const X=v=>ox+(v-a)*s,Y=v=>oy-(v-b)*s;TR={a,b,s,ox,oy};
+
+ // 1. Subtle CAD underlay (doors, furniture, annotations)
+ if(underlay && underlay.length){
+  x.save();x.strokeStyle='rgba(110,130,170,0.22)';x.lineWidth=1;
+  x.beginPath();
+  for(let i=0;i<underlay.length;i++){
+   const u=underlay[i];
+   x.moveTo(X(u[0]),Y(u[1]));x.lineTo(X(u[2]),Y(u[3]));
+  }
+  x.stroke();x.restore();
+ }
+
+ // 2. Building footprint base
+ (outline||[]).forEach(rg=>{
+  if(rg.length>2){
+   x.beginPath();rg.forEach((p,i)=>i?x.lineTo(X(p[0]),Y(p[1])):x.moveTo(X(p[0]),Y(p[1])));x.closePath();
+   x.fillStyle='rgba(15, 25, 52, 0.55)';x.fill();
+  }
+ });
+
+ // 2a. All Room Floors (Balcony, Dry Balcony, Master Wood, Entrance, Washroom, Common Hall/Kitchen/Bedrooms)
+ const floorStyles={
+  master_wood:{fill:'rgba(168, 108, 56, 0.44)',stroke:'rgba(194, 132, 72, 0.85)'},
+  balcony:{fill:'rgba(217, 155, 82, 0.44)',stroke:'rgba(245, 158, 11, 0.90)'},
+  dry_balcony:{fill:'rgba(148, 163, 184, 0.36)',stroke:'rgba(148, 163, 184, 0.85)'},
+  entrance:{fill:'rgba(129, 140, 248, 0.36)',stroke:'rgba(129, 140, 248, 0.85)'},
+  washroom:{fill:'rgba(14, 165, 233, 0.28)',stroke:'rgba(14, 165, 233, 0.80)'},
+  common:{fill:'rgba(226, 214, 185, 0.20)',stroke:'rgba(226, 214, 185, 0.50)'}
+ };
+ (rooms||[]).forEach(rm=>{
+  const rg=rm.ring||[];
+  if(rg.length<3||rm.type=='external'||rm.type=='shaft'||!rm.floor_obj)return;
+  const st=floorStyles[rm.floor_category]||floorStyles.common;
+  x.beginPath();rg.forEach((p,i)=>i?x.lineTo(X(p[0]),Y(p[1])):x.moveTo(X(p[0]),Y(p[1])));x.closePath();
+  x.fillStyle=st.fill;x.fill();
+  x.strokeStyle=st.stroke;x.lineWidth=1.2;x.stroke();
+ });
+
+ // 2b. Kitchen Platform & Countertop
+ (kitchens||[]).forEach(kt=>{
+  const rg=kt.ring||[];
+  if(rg.length>2){
+   x.beginPath();rg.forEach((p,i)=>i?x.lineTo(X(p[0]),Y(p[1])):x.moveTo(X(p[0]),Y(p[1])));x.closePath();
+   x.fillStyle='rgba(16, 185, 129, 0.42)';x.fill();
+   x.strokeStyle='#10b981';x.lineWidth=1.5;x.stroke();
+  }
+ });
+
+ // 2c. Skirting runs (purple)
+ (skirting||[]).forEach(rg=>{
+  if(rg.length>2){
+   x.beginPath();rg.forEach((p,i)=>i?x.lineTo(X(p[0]),Y(p[1])):x.moveTo(X(p[0]),Y(p[1])));x.closePath();
+   x.fillStyle='rgba(167, 139, 250, 0.55)';x.fill();
+  }
+ });
+
+ // 3. Sill & Lintel pieces
+ walls.filter(w=>w.kind!='wall').forEach(w=>{
+  if(!w.polygon||!w.polygon.length)return;
+  x.beginPath();w.polygon.forEach((p,i)=>i?x.lineTo(X(p[0]),Y(p[1])):x.moveTo(X(p[0]),Y(p[1])));x.closePath();
+  const isWin=(w.kind=='sill');
+  x.fillStyle=isWin?'rgba(45,212,191,0.55)':'rgba(251,191,36,0.55)';
+  x.strokeStyle=isWin?'#2dd4bf':'#fbbf24';x.lineWidth=1.2;
+  x.fill();x.stroke();
+ });
+
+ // 3b. Window Glass Panes & 1.2m Balcony Glass Railings
+ (openings||[]).forEach(o=>{
+  if(!o.p0||!o.p1)return;
+  if(o.balcony&&!o.dry_balcony){
+   if(o.rect&&o.rect.length>2){
+    x.beginPath();o.rect.forEach((p,i)=>i?x.lineTo(X(p[0]),Y(p[1])):x.moveTo(X(p[0]),Y(p[1])));x.closePath();
+    x.fillStyle='rgba(0, 229, 255, 0.45)';x.fill();
+    x.strokeStyle='#00e5ff';x.lineWidth=2.2;x.stroke();
+   }
+   x.save();x.strokeStyle='#ffffff';x.lineWidth=1.5;
+   x.beginPath();x.moveTo(X(o.p0[0]),Y(o.p0[1]));x.lineTo(X(o.p1[0]),Y(o.p1[1]));x.stroke();
+   x.restore();
+  }else if(o.type=='window'||o.type=='vent'){
+   x.save();x.strokeStyle='#38bdf8';x.lineWidth=2.4;
+   x.beginPath();x.moveTo(X(o.p0[0]),Y(o.p0[1]));x.lineTo(X(o.p1[0]),Y(o.p1[1]));x.stroke();
+   x.restore();
+  }
+ });
+
+ // 4. Walls (exterior red, interior blue)
+ walls.filter(w=>w.kind=='wall').forEach(w=>{
+  if(!w.polygon||!w.polygon.length)return;
+  x.beginPath();w.polygon.forEach((p,i)=>i?x.lineTo(X(p[0]),Y(p[1])):x.moveTo(X(p[0]),Y(p[1])));x.closePath();
+  const e=w.wall_type=='exterior';
+  x.fillStyle=e?'rgba(233,69,96,0.75)':'rgba(74,163,255,0.70)';
+  x.strokeStyle=e?'#e94560':'#4aa3ff';x.lineWidth=1.5;
+  x.fill();x.stroke();
+ });
+
+ // 5. Golden Exterior Building Outline
+ x.save();x.setLineDash([8,4]);x.lineWidth=2.2;x.strokeStyle='rgba(255,215,64,0.92)';
+ (outline||[]).forEach(rg=>{
+  if(rg.length>2){
+   x.beginPath();rg.forEach((p,i)=>i?x.lineTo(X(p[0]),Y(p[1])):x.moveTo(X(p[0]),Y(p[1])));x.closePath();x.stroke();
+  }
+ });
+ x.restore();
+
+ // 6. Room Floor Labels, Understandable Room Names & Written CAD Dimensions
+ x.save();x.textAlign='center';
+ (rooms||[]).forEach(rm=>{
+  const rg=rm.ring||[];
+  if(rg.length<3||rm.type=='external'||(rm.type=='shaft'&&!rm.cad_text))return;
+  let cx=0,cy=0;rg.forEach(p=>{cx+=p[0];cy+=p[1]});cx/=rg.length;cy/=rg.length;
+  const lbl=rm.display_name||rm.label||rm.name||'';
+  const sub=(rm.cad_dim?rm.cad_dim+' · ':'')+(rm.area_m2||0).toFixed(1)+' m²';
+  x.font='bold 11px sans-serif';
+  const w1=x.measureText(lbl).width;
+  x.font='9.5px sans-serif';
+  const w2=x.measureText(sub).width;
+  const tw=Math.max(w1,w2,56)+10;
+  x.fillStyle='rgba(11,16,36,0.84)';
+  x.fillRect(X(cx)-tw/2,Y(cy)-14,tw,28);
+  x.strokeStyle='rgba(148,163,184,0.35)';x.lineWidth=0.8;
+  x.strokeRect(X(cx)-tw/2,Y(cy)-14,tw,28);
+  x.font='bold 11px sans-serif';
+  x.fillStyle=rm.floor_category=='balcony'?'#fde68a':(rm.floor_category=='master_wood'?'#fed7aa':(rm.type=='washroom'?'#7dd3fc':'#f8fafc'));
+  x.fillText(lbl,X(cx),Y(cy)-2);
+  x.font='9.5px sans-serif';x.fillStyle='#cbd5e1';
+  x.fillText(sub,X(cx),Y(cy)+10);
+ });
+ x.restore();
+
+ // 7. Wall IDs if readable
+ const realWalls=walls.filter(w=>w.kind=='wall');
+ if(realWalls.length<120){
+  x.fillStyle='#cde';x.font='bold 9px sans-serif';x.textAlign='center';
+  realWalls.forEach(w=>{
+   if(w.length>650) x.fillText(w.id.replace('Wall_',''),X((w.x1+w.x2)/2),Y((w.y1+w.y2)/2)+3);
+  });
+ }
+}
+let aiBase=null;
+async function runAI(auto){
+ $('aiGo').disabled=true;$('aiBusy').classList.remove('hidden');$('aiOut').textContent='';$('aiUndo').classList.add('hidden');
+ try{
+  const r=await fetch('/ai_review',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({job_id:cur.job_id,tiles:2})});
+  const d=await r.json();if(!r.ok){$('aiOut').textContent='AI error: '+d.error;return}
+  aiLabels=d.labels||{};
+  const fmt=a=>'('+Math.round(a.x1)+','+Math.round(a.y1)+')->('+Math.round(a.x2)+','+Math.round(a.y2)+')';
+  let msg='AI ('+d.model+') checked the plan in '+d.tiles+' zoomed views and classified '+d.labelled+'/'+d.wall_total+' walls one by one: ';
+  if(d.remove.length||d.add.length){
+   const r2=await fetch('/edit',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({job_id:cur.job_id,remove:d.remove,add:d.add})});
+   const e=await r2.json();if(!r2.ok){$('aiOut').textContent='Could not apply AI result: '+e.error;return}
+   cur=e;show(e);$('aiUndo').classList.remove('hidden');
+   msg+='removed '+d.remove.length+' non-wall piece(s)'+(d.remove.length?' ['+d.remove.join(', ')+']':'')+', added '+d.add.length+' wall(s) snapped to CAD lines. ';
+  }else{show(cur);msg+='no changes needed. '}
+  if(d.cand_total)msg+='Image segmentation sent '+d.cand_total+' possible missed wall(s) to the AI: '+(d.cand_added||[]).length+' confirmed and added. ';
+  if(d.kept.length)msg+='Kept '+d.kept.length+' piece(s) the AI doubted because the CAD draws them as proper walls ['+d.kept.join(', ')+']. ';
+  if(d.unverified.length)msg+='Ignored '+d.unverified.length+' AI guess(es) with no matching wall lines in the CAD: '+d.unverified.map(fmt).join(', ')+'. ';
+  if(d.failed_calls)msg+=d.failed_calls+' of '+d.calls+' AI views failed (quota/busy) - run again in a minute for a full check. ';
+  $('aiOut').textContent=msg+(d.notes?' Notes: '+d.notes:'');
+ }catch(e){$('aiOut').textContent='AI error: '+e.message}
+ finally{$('aiGo').disabled=false;$('aiBusy').classList.add('hidden')}}
+$('aiGo').onclick=()=>runAI(false);
+$('aiUndo').onclick=async()=>{
+ const r=await fetch('/rescan',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({job_id:cur.job_id})});
+ const d=await r.json();if(r.ok){cur=d;show(d);$('aiUndo').classList.add('hidden');$('aiOut').textContent='AI changes undone - showing the pure CAD detection.'}};
+
+const dl=n=>location.href='/download/'+cur.files[n];
+$('dl').onclick=()=>dl('script');$('dj').onclick=()=>dl('json');$('dc').onclick=()=>dl('csv');
+$('outerBtn').onclick=async()=>{
+ if(!cur)return;
+ $('outerBtn').disabled=true;$('outerBusy').classList.remove('hidden');
+ try{
+  // Step 1: Preview — ask the server how many connected outer walls will be added
+  const r1=await fetch('/add_outer_walls',{method:'POST',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({job_id:cur.job_id, preview:true})});
+  const p=await r1.json();
+  if(!r1.ok){alert(p.error||'Could not preview outer walls');return}
+
+  const ok=confirm(
+    '🧱 Add Connected Outer Boundary Walls?\n\n'+
+    (p.message||`${p.count} outer boundary walls (${p.total_length_m} m) will be added.`) + '\n\n'+
+    'Click OK to add these walls and update the Blender script, or Cancel to keep the current state.');
+  if(!ok) return;
+
+  // Step 2: Actually add the walls and regenerate the Blender script
+  const r2=await fetch('/add_outer_walls',{method:'POST',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({job_id:cur.job_id, preview:false})});
+  const d=await r2.json();
+  if(!r2.ok){alert(d.error||'Could not add outer walls');return}
+  cur=d;show(d);
+ }catch(e){alert('Error: '+e.message)}
+ finally{$('outerBtn').disabled=false;$('outerBusy').classList.add('hidden')}
+};
+$('exp3d').onclick=async()=>{
+ if(!cur)return;
+ $('exp3d').disabled=true;$('expBusy').classList.remove('hidden');$('expOut').innerHTML='';
+ let t=0;$('expSec').textContent='0s';const tm=setInterval(()=>{t++;$('expSec').textContent=t+'s'},1000);
+ try{
+  const r=await fetch('/export_3d',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({job_id:cur.job_id})});
+  const d=await r.json();
+  if(!r.ok){$('expOut').innerHTML='<div class="err"></div>';$('expOut').querySelector('.err').textContent=d.error||'Export failed';return}
+  const icon=n=>n.endsWith('_Unreal.fbx')?'🎮 Unreal Engine':n.endsWith('_3dsMax.fbx')?'🧊 3ds Max':n.endsWith('.blend')?'🟠 Blender':'📄 Import notes';
+  $('expOut').innerHTML=`<div style="color:#7fe0a0;margin-bottom:6px">✅ 3D model built and exported — Blender validation <b>${d.validation||'-'}</b>; `+
+   `${d.objects.Unreal||0} separate editable objects (walls, floor slab, ceiling, recessed ceilings, room floors, skirting, tiles, lintels, doors, windows + glass, balcony glass railings, kitchen).</div>`+
+   d.files.map(f=>`<a class="btn alt sm" style="margin:3px;display:inline-block;text-decoration:none" href="${f.url}">${icon(f.name)} · ${f.name} (${f.size_kb} KB)</a>`).join('')+
+   `<div style="color:#9ab;margin-top:6px">Saved in: ${d.folder}</div>`;
+ }catch(e){$('expOut').textContent='Export error: '+e.message}
+ finally{clearInterval(tm);$('exp3d').disabled=false;$('expBusy').classList.add('hidden')}
+};
+$('cp').onclick=()=>navigator.clipboard.writeText(cur.script).then(()=>{$('cp').textContent='✅ Copied';setTimeout(()=>$('cp').textContent='📋 Copy script',1800)});
+</script>
+</body>
+</html>

@@ -1,0 +1,17 @@
+2BHK_Windgates - architectural model export
+Walls: individual editable pieces; Unreal objects: 133, 3ds Max objects: 133
+
+UNREAL ENGINE 5  (file: *_Unreal.fbx, triangulated, smoothing groups, tangents)
+  * Content Browser > Import, or File > Import Into Level to keep the GRP_ hierarchy as actors.
+  * Skeletal Mesh: off | Combine Meshes: OFF (keeps every wall/floor/door separate)
+  * Convert Scene: ON | Import Uniform Scale: 1.0 (1 m = 100 uu, already scaled)
+  * Generate Lightmap UVs: ON | Normal Import Method: Import Normals
+  * Materials: Create New Materials (names MAT_*, Window_Glass_Mat, MAT_Balcony_Glass ...)
+  * Glass: set the imported glass materials to Translucent in UE.
+
+3ds MAX  (file: *_3dsMax.fbx, quads/n-gons kept as Editable Poly, user properties kept)
+  * File > Import > *_3dsMax.fbx | Units: Automatic (converts metres to your system units)
+  * Smoothing Groups: ON | Preserve Edge Orientation: ON | Up axis: Z-up (auto-converted)
+  * Hierarchy: GRP_* dummies group Walls, Floor Slab, Ceiling, Recessed Ceilings, Lintels,
+    Doors (Frame > Leaf > Lever), Windows, Flooring, Skirting, Tiles, Balcony Railings, Kitchen.
+  * Object user properties carry room / opening / thickness metadata (Object Properties > User Defined).

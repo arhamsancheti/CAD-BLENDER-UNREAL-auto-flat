@@ -1,0 +1,2874 @@
+[
+  {
+    "id": "Wall_001",
+    "kind": "wall",
+    "opening": "",
+    "x1": 574.95,
+    "y1": 675.02,
+    "x2": 1484.95,
+    "y2": 675.02,
+    "length": 910.0,
+    "thickness": 750.0,
+    "base": 0.0,
+    "height": 3000.0,
+    "wall_type": "exterior",
+    "layer": "COL",
+    "shape": "rectangle",
+    "polygon": [
+      [
+        574.9,
+        1050.0
+      ],
+      [
+        1484.9,
+        1050.0
+      ],
+      [
+        1484.9,
+        300.0
+      ],
+      [
+        574.9,
+        300.0
+      ]
+    ]
+  },
+  {
+    "id": "Wall_002",
+    "kind": "wall",
+    "opening": "",
+    "x1": 9174.95,
+    "y1": 265.02,
+    "x2": 9174.95,
+    "y2": 1035.02,
+    "length": 770.0,
+    "thickness": 610.0,
+    "base": 0.0,
+    "height": 3000.0,
+    "wall_type": "interior",
+    "layer": "COL",
+    "shape": "rectangle",
+    "polygon": [
+      [
+        8869.9,
+        265.0
+      ],
+      [
+        8869.9,
+        1035.0
+      ],
+      [
+        9479.9,
+        1035.0
+      ],
+      [
+        9479.9,
+        265.0
+      ]
+    ]
+  },
+  {
+    "id": "Wall_003",
+    "kind": "wall",
+    "opening": "",
+    "x1": 9069.95,
+    "y1": 6937.52,
+    "x2": 16170.0,
+    "y2": 6937.52,
+    "length": 7100.05,
+    "thickness": 125.0,
+    "base": 0.0,
+    "height": 3000.0,
+    "wall_type": "exterior",
+    "layer": "geometry",
+    "shape": "rectangle",
+    "polygon": [
+      [
+        9069.9,
+        7000.0
+      ],
+      [
+        16170.0,
+        7000.0
+      ],
+      [
+        16170.0,
+        6875.0
+      ],
+      [
+        9069.9,
+        6875.0
+      ]
+    ]
+  },
+  {
+    "id": "Wall_004",
+    "kind": "wall",
+    "opening": "",
+    "x1": 1124.95,
+    "y1": 8550.02,
+    "x2": 7370.0,
+    "y2": 8550.02,
+    "length": 6245.05,
+    "thickness": 150.0,
+    "base": 0.0,
+    "height": 3000.0,
+    "wall_type": "exterior",
+    "layer": "geometry",
+    "shape": "rectangle",
+    "polygon": [
+      [
+        1124.9,
+        8625.0
+      ],
+      [
+        7370.0,
+        8625.0
+      ],
+      [
+        7370.0,
+        8475.0
+      ],
+      [
+        1124.9,
+        8475.0
+      ]
+    ]
+  },
+  {
+    "id": "Wall_005",
+    "kind": "wall",
+    "opening": "",
+    "x1": 15519.95,
+    "y1": 1175.02,
+    "x2": 15519.95,
+    "y2": 5525.02,
+    "length": 4350.0,
+    "thickness": 200.0,
+    "base": 0.0,
+    "height": 3000.0,
+    "wall_type": "interior",
+    "layer": "geometry",
+    "shape": "rectangle",
+    "polygon": [
+      [
+        15419.9,
+        1175.0
+      ],
+      [
+        15419.9,
+        5525.0
+      ],
+      [
+        15619.9,
+        5525.0
+      ],
+      [
+        15619.9,
+        1175.0
+      ]
+    ]
+  },
+  {
+    "id": "Wall_006",
+    "kind": "wall",
+    "opening": "",
+    "x1": 575.0,
+    "y1": 5200.02,
+    "x2": 4619.95,
+    "y2": 5200.02,
+    "length": 4044.95,
+    "thickness": 150.0,
+    "base": 0.0,
+    "height": 3000.0,
+    "wall_type": "interior",
+    "layer": "geometry",
+    "shape": "rectangle",
+    "polygon": [
+      [
+        1474.9,
+        5275.0
+      ],
+      [
+        1474.9,
+        5325.0
+      ],
+      [
+        1599.9,
+        5325.0
+      ],
+      [
+        1599.9,
+        5275.0
+      ],
+      [
+        4619.9,
+        5275.0
+      ],
+      [
+        4619.9,
+        5125.0
+      ],
+      [
+        575.0,
+        5125.0
+      ],
+      [
+        575.0,
+        5275.0
+      ]
+    ]
+  },
+  {
+    "id": "Wall_007",
+    "kind": "wall",
+    "opening": "",
+    "x1": 5619.95,
+    "y1": 300.02,
+    "x2": 5619.95,
+    "y2": 4075.02,
+    "length": 3775.0,
+    "thickness": 200.0,
+    "base": 0.0,
+    "height": 3000.0,
+    "wall_type": "interior",
+    "layer": "geometry",
+    "shape": "rectangle",
+    "polygon": [
+      [
+        5519.9,
+        300.0
+      ],
+      [
+        5519.9,
+        4075.0
+      ],
+      [
+        5719.9,
+        4075.0
+      ],
+      [
+        5719.9,
+        300.0
+      ]
+    ]
+  },
+  {
+    "id": "Wall_008",
+    "kind": "wall",
+    "opening": "",
+    "x1": 17294.95,
+    "y1": 675.0,
+    "x2": 17294.95,
+    "y2": 3900.0,
+    "length": 3225.0,
+    "thickness": 150.0,
+    "base": 0.0,
+    "height": 3000.0,
+    "wall_type": "exterior",
+    "layer": "geometry",
+    "shape": "rectangle",
+    "polygon": [
+      [
+        17219.9,
+        675.0
+      ],
+      [
+        17219.9,
+        3900.0
+      ],
+      [
+        17369.9,
+        3900.0
+      ],
+      [
+        17369.9,
+        675.0
+      ]
+    ]
+  },
+  {
+    "id": "Wall_009",
+    "kind": "wall",
+    "opening": "",
+    "x1": 575.0,
+    "y1": 3700.02,
+    "x2": 3761.66,
+    "y2": 3700.02,
+    "length": 3186.66,
+    "thickness": 150.0,
+    "base": 0.0,
+    "height": 3000.0,
+    "wall_type": "exterior",
+    "layer": "geometry",
+    "shape": "rectangle",
+    "polygon": [
+      [
+        575.0,
+        3775.0
+      ],
+      [
+        3761.7,
+        3775.0
+      ],
+      [
+        3761.7,
+        3625.0
+      ],
+      [
+        575.0,
+        3625.0
+      ]
+    ]
+  },
+  {
+    "id": "Wall_010",
+    "kind": "wall",
+    "opening": "",
+    "x1": 8969.95,
+    "y1": 1035.02,
+    "x2": 8969.95,
+    "y2": 4075.0,
+    "length": 3039.98,
+    "thickness": 200.0,
+    "base": 0.0,
+    "height": 3000.0,
+    "wall_type": "interior",
+    "layer": "geometry",
+    "shape": "rectangle",
+    "polygon": [
+      [
+        8869.9,
+        4075.0
+      ],
+      [
+        9069.9,
+        4075.0
+      ],
+      [
+        9069.9,
+        1035.0
+      ],
+      [
+        8869.9,
+        1035.0
+      ]
+    ]
+  },
+  {
+    "id": "Wall_011",
+    "kind": "wall",
+    "opening": "",
+    "x1": 8969.95,
+    "y1": 5125.0,
+    "x2": 8969.95,
+    "y2": 7800.02,
+    "length": 2675.02,
+    "thickness": 200.0,
+    "base": 0.0,
+    "height": 3000.0,
+    "wall_type": "interior",
+    "layer": "geometry",
+    "shape": "rectangle",
+    "polygon": [
+      [
+        8869.9,
+        7800.0
+      ],
+      [
+        9069.9,
+        7800.0
+      ],
+      [
+        9069.9,
+        5125.0
+      ],
+      [
+        8869.9,
+        5125.0
+      ]
+    ]
+  },
+  {
+    "id": "Wall_012",
+    "kind": "wall",
+    "opening": "",
+    "x1": 7294.95,
+    "y1": 5125.02,
+    "x2": 7294.95,
+    "y2": 7800.02,
+    "length": 2675.0,
+    "thickness": 150.0,
+    "base": 0.0,
+    "height": 3000.0,
+    "wall_type": "interior",
+    "layer": "geometry",
+    "shape": "rectangle",
+    "polygon": [
+      [
+        7219.9,
+        5125.0
+      ],
+      [
+        7219.9,
+        7800.0
+      ],
+      [
+        7369.9,
+        7800.0
+      ],
+      [
+        7369.9,
+        5125.0
+      ]
+    ]
+  },
+  {
+    "id": "Wall_013",
+    "kind": "wall",
+    "opening": "",
+    "x1": 11944.95,
+    "y1": 1650.02,
+    "x2": 11944.95,
+    "y2": 4275.0,
+    "length": 2624.98,
+    "thickness": 250.0,
+    "base": 0.0,
+    "height": 3000.0,
+    "wall_type": "interior",
+    "layer": "geometry",
+    "shape": "rectangle",
+    "polygon": [
+      [
+        11819.9,
+        1650.0
+      ],
+      [
+        11819.9,
+        4275.0
+      ],
+      [
+        12069.9,
+        4275.0
+      ],
+      [
+        12069.9,
+        1650.0
+      ]
+    ]
+  },
+  {
+    "id": "Wall_014",
+    "kind": "wall",
+    "opening": "",
+    "x1": 1484.95,
+    "y1": 362.52,
+    "x2": 3770.0,
+    "y2": 362.52,
+    "length": 2285.05,
+    "thickness": 125.0,
+    "base": 0.0,
+    "height": 3000.0,
+    "wall_type": "exterior",
+    "layer": "geometry",
+    "shape": "rectangle",
+    "polygon": [
+      [
+        3770.0,
+        425.0
+      ],
+      [
+        3770.0,
+        300.0
+      ],
+      [
+        1484.9,
+        300.0
+      ],
+      [
+        1484.9,
+        425.0
+      ]
+    ]
+  },
+  {
+    "id": "Wall_015",
+    "kind": "wall",
+    "opening": "",
+    "x1": 5719.95,
+    "y1": 4000.02,
+    "x2": 7970.0,
+    "y2": 4000.02,
+    "length": 2250.05,
+    "thickness": 150.0,
+    "base": 0.0,
+    "height": 3000.0,
+    "wall_type": "interior",
+    "layer": "geometry",
+    "shape": "rectangle",
+    "polygon": [
+      [
+        7970.0,
+        4075.0
+      ],
+      [
+        7970.0,
+        3925.0
+      ],
+      [
+        5719.9,
+        3925.0
+      ],
+      [
+        5719.9,
+        4075.0
+      ]
+    ]
+  },
+  {
+    "id": "Wall_016",
+    "kind": "wall",
+    "opening": "",
+    "x1": 5644.95,
+    "y1": 6683.34,
+    "x2": 5644.95,
+    "y2": 8475.02,
+    "length": 1791.68,
+    "thickness": 150.0,
+    "base": 0.0,
+    "height": 3000.0,
+    "wall_type": "interior",
+    "layer": "geometry",
+    "shape": "rectangle",
+    "polygon": [
+      [
+        5569.9,
+        8475.0
+      ],
+      [
+        5719.9,
+        8475.0
+      ],
+      [
+        5719.9,
+        6683.3
+      ],
+      [
+        5569.9,
+        6683.3
+      ]
+    ]
+  },
+  {
+    "id": "Wall_017",
+    "kind": "wall",
+    "opening": "",
+    "x1": 15619.95,
+    "y1": 5462.52,
+    "x2": 17344.95,
+    "y2": 5462.52,
+    "length": 1725.0,
+    "thickness": 125.0,
+    "base": 0.0,
+    "height": 3000.0,
+    "wall_type": "interior",
+    "layer": "geometry",
+    "shape": "rectangle",
+    "polygon": [
+      [
+        17344.9,
+        5525.0
+      ],
+      [
+        17344.9,
+        5400.0
+      ],
+      [
+        15619.9,
+        5400.0
+      ],
+      [
+        15619.9,
+        5525.0
+      ]
+    ]
+  },
+  {
+    "id": "Wall_018",
+    "kind": "wall",
+    "opening": "",
+    "x1": 5569.95,
+    "y1": 5900.02,
+    "x2": 7219.95,
+    "y2": 5900.02,
+    "length": 1650.0,
+    "thickness": 150.0,
+    "base": 0.0,
+    "height": 3000.0,
+    "wall_type": "interior",
+    "layer": "geometry",
+    "shape": "rectangle",
+    "polygon": [
+      [
+        7219.9,
+        5975.0
+      ],
+      [
+        7219.9,
+        5825.0
+      ],
+      [
+        5569.9,
+        5825.0
+      ],
+      [
+        5569.9,
+        5975.0
+      ]
+    ]
+  },
+  {
+    "id": "Wall_019",
+    "kind": "wall",
+    "opening": "",
+    "x1": 15619.95,
+    "y1": 1275.02,
+    "x2": 17219.95,
+    "y2": 1275.02,
+    "length": 1600.0,
+    "thickness": 200.0,
+    "base": 0.0,
+    "height": 3000.0,
+    "wall_type": "exterior",
+    "layer": "geometry",
+    "shape": "rectangle",
+    "polygon": [
+      [
+        17219.9,
+        1375.0
+      ],
+      [
+        17219.9,
+        1175.0
+      ],
+      [
+        15619.9,
+        1175.0
+      ],
+      [
+        15619.9,
+        1375.0
+      ]
+    ]
+  },
+  {
+    "id": "Wall_020",
+    "kind": "wall",
+    "opening": "",
+    "x1": 4544.95,
+    "y1": 3625.0,
+    "x2": 4544.95,
+    "y2": 5125.02,
+    "length": 1500.02,
+    "thickness": 150.0,
+    "base": 0.0,
+    "height": 3000.0,
+    "wall_type": "interior",
+    "layer": "geometry",
+    "shape": "rectangle",
+    "polygon": [
+      [
+        4469.9,
+        5125.0
+      ],
+      [
+        4619.9,
+        5125.0
+      ],
+      [
+        4619.9,
+        3625.0
+      ],
+      [
+        4469.9,
+        3625.0
+      ]
+    ]
+  },
+  {
+    "id": "Wall_021",
+    "kind": "wall",
+    "opening": "",
+    "x1": 17282.45,
+    "y1": 5525.02,
+    "x2": 17282.45,
+    "y2": 7000.0,
+    "length": 1474.98,
+    "thickness": 125.0,
+    "base": 0.0,
+    "height": 3000.0,
+    "wall_type": "exterior",
+    "layer": "geometry",
+    "shape": "rectangle",
+    "polygon": [
+      [
+        17219.9,
+        7000.0
+      ],
+      [
+        17344.9,
+        7000.0
+      ],
+      [
+        17344.9,
+        5525.0
+      ],
+      [
+        17219.9,
+        5525.0
+      ]
+    ]
+  },
+  {
+    "id": "Wall_022",
+    "kind": "wall",
+    "opening": "",
+    "x1": 1187.45,
+    "y1": 7125.02,
+    "x2": 1187.45,
+    "y2": 8475.02,
+    "length": 1350.0,
+    "thickness": 125.0,
+    "base": 0.0,
+    "height": 3000.0,
+    "wall_type": "exterior",
+    "layer": "geometry",
+    "shape": "rectangle",
+    "polygon": [
+      [
+        1124.9,
+        8475.0
+      ],
+      [
+        1249.9,
+        8475.0
+      ],
+      [
+        1249.9,
+        7125.0
+      ],
+      [
+        1124.9,
+        7125.0
+      ]
+    ]
+  },
+  {
+    "id": "Wall_023",
+    "kind": "wall",
+    "opening": "",
+    "x1": 5720.0,
+    "y1": 62.52,
+    "x2": 7069.95,
+    "y2": 62.52,
+    "length": 1349.95,
+    "thickness": 125.0,
+    "base": 0.0,
+    "height": 3000.0,
+    "wall_type": "exterior",
+    "layer": "geometry",
+    "shape": "rectangle",
+    "polygon": [
+      [
+        5720.0,
+        125.0
+      ],
+      [
+        7069.9,
+        125.0
+      ],
+      [
+        7069.9,
+        0.0
+      ],
+      [
+        5720.0,
+        0.0
+      ]
+    ]
+  },
+  {
+    "id": "Wall_024",
+    "kind": "wall",
+    "opening": "",
+    "x1": 11944.95,
+    "y1": 300.02,
+    "x2": 11944.95,
+    "y2": 1400.0,
+    "length": 1099.98,
+    "thickness": 250.0,
+    "base": 0.0,
+    "height": 3000.0,
+    "wall_type": "interior",
+    "layer": "geometry",
+    "shape": "rectangle",
+    "polygon": [
+      [
+        11819.9,
+        300.0
+      ],
+      [
+        11819.9,
+        1400.0
+      ],
+      [
+        12069.9,
+        1400.0
+      ],
+      [
+        12069.9,
+        300.0
+      ]
+    ]
+  },
+  {
+    "id": "Wall_025",
+    "kind": "wall",
+    "opening": "",
+    "x1": 7369.95,
+    "y1": 5200.02,
+    "x2": 8161.66,
+    "y2": 5200.02,
+    "length": 791.71,
+    "thickness": 150.0,
+    "base": 0.0,
+    "height": 3000.0,
+    "wall_type": "interior",
+    "layer": "geometry",
+    "shape": "rectangle",
+    "polygon": [
+      [
+        8161.7,
+        5275.0
+      ],
+      [
+        8161.7,
+        5125.0
+      ],
+      [
+        7369.9,
+        5125.0
+      ],
+      [
+        7369.9,
+        5275.0
+      ]
+    ]
+  },
+  {
+    "id": "Wall_026",
+    "kind": "wall",
+    "opening": "",
+    "x1": 17294.95,
+    "y1": 4650.0,
+    "x2": 17294.95,
+    "y2": 5400.02,
+    "length": 750.02,
+    "thickness": 150.0,
+    "base": 0.0,
+    "height": 3000.0,
+    "wall_type": "exterior",
+    "layer": "geometry",
+    "shape": "rectangle",
+    "polygon": [
+      [
+        17219.9,
+        5400.0
+      ],
+      [
+        17369.9,
+        5400.0
+      ],
+      [
+        17369.9,
+        4650.0
+      ],
+      [
+        17219.9,
+        4650.0
+      ]
+    ]
+  },
+  {
+    "id": "Wall_027",
+    "kind": "wall",
+    "opening": "",
+    "x1": 4770.0,
+    "y1": 362.52,
+    "x2": 5519.95,
+    "y2": 362.52,
+    "length": 749.95,
+    "thickness": 125.0,
+    "base": 0.0,
+    "height": 3000.0,
+    "wall_type": "exterior",
+    "layer": "geometry",
+    "shape": "rectangle",
+    "polygon": [
+      [
+        5519.9,
+        425.0
+      ],
+      [
+        5519.9,
+        300.0
+      ],
+      [
+        4770.0,
+        300.0
+      ],
+      [
+        4770.0,
+        425.0
+      ]
+    ]
+  },
+  {
+    "id": "Wall_028",
+    "kind": "wall",
+    "opening": "",
+    "x1": 11070.0,
+    "y1": 362.52,
+    "x2": 11819.95,
+    "y2": 362.52,
+    "length": 749.95,
+    "thickness": 125.0,
+    "base": 0.0,
+    "height": 3000.0,
+    "wall_type": "exterior",
+    "layer": "geometry",
+    "shape": "rectangle",
+    "polygon": [
+      [
+        11819.9,
+        425.0
+      ],
+      [
+        11819.9,
+        300.0
+      ],
+      [
+        11070.0,
+        300.0
+      ],
+      [
+        11070.0,
+        425.0
+      ]
+    ]
+  },
+  {
+    "id": "Wall_029",
+    "kind": "wall",
+    "opening": "",
+    "x1": 5644.95,
+    "y1": 5250.0,
+    "x2": 5644.95,
+    "y2": 5825.02,
+    "length": 575.02,
+    "thickness": 150.0,
+    "base": 0.0,
+    "height": 3000.0,
+    "wall_type": "interior",
+    "layer": "geometry",
+    "shape": "rectangle",
+    "polygon": [
+      [
+        5569.9,
+        5825.0
+      ],
+      [
+        5719.9,
+        5825.0
+      ],
+      [
+        5719.9,
+        5250.0
+      ],
+      [
+        5569.9,
+        5250.0
+      ]
+    ]
+  },
+  {
+    "id": "Wall_030",
+    "kind": "wall",
+    "opening": "",
+    "x1": 15619.95,
+    "y1": 2937.52,
+    "x2": 16120.0,
+    "y2": 2937.52,
+    "length": 500.05,
+    "thickness": 125.0,
+    "base": 0.0,
+    "height": 3000.0,
+    "wall_type": "interior",
+    "layer": "geometry",
+    "shape": "rectangle",
+    "polygon": [
+      [
+        16120.0,
+        3000.0
+      ],
+      [
+        16120.0,
+        2875.0
+      ],
+      [
+        15619.9,
+        2875.0
+      ],
+      [
+        15619.9,
+        3000.0
+      ]
+    ]
+  },
+  {
+    "id": "Wall_031",
+    "kind": "wall",
+    "opening": "",
+    "x1": 11819.95,
+    "y1": 1525.0,
+    "x2": 12319.95,
+    "y2": 1525.0,
+    "length": 500.0,
+    "thickness": 250.0,
+    "base": 0.0,
+    "height": 3000.0,
+    "wall_type": "interior",
+    "layer": "geometry",
+    "shape": "rectangle",
+    "polygon": [
+      [
+        12319.9,
+        1650.0
+      ],
+      [
+        12319.9,
+        1400.0
+      ],
+      [
+        11819.9,
+        1400.0
+      ],
+      [
+        11819.9,
+        1650.0
+      ]
+    ]
+  },
+  {
+    "id": "Wall_032",
+    "kind": "wall",
+    "opening": "",
+    "x1": 16720.0,
+    "y1": 2937.52,
+    "x2": 17219.95,
+    "y2": 2937.52,
+    "length": 499.95,
+    "thickness": 125.0,
+    "base": 0.0,
+    "height": 3000.0,
+    "wall_type": "interior",
+    "layer": "geometry",
+    "shape": "rectangle",
+    "polygon": [
+      [
+        17219.9,
+        3000.0
+      ],
+      [
+        17219.9,
+        2875.0
+      ],
+      [
+        16720.0,
+        2875.0
+      ],
+      [
+        16720.0,
+        3000.0
+      ]
+    ]
+  },
+  {
+    "id": "Wall_033",
+    "kind": "wall",
+    "opening": "",
+    "x1": 12069.95,
+    "y1": 1712.52,
+    "x2": 12545.0,
+    "y2": 1712.52,
+    "length": 475.05,
+    "thickness": 125.0,
+    "base": 0.0,
+    "height": 3000.0,
+    "wall_type": "interior",
+    "layer": "geometry",
+    "shape": "rectangle",
+    "polygon": [
+      [
+        12545.0,
+        1775.0
+      ],
+      [
+        12545.0,
+        1650.0
+      ],
+      [
+        12069.9,
+        1650.0
+      ],
+      [
+        12069.9,
+        1775.0
+      ]
+    ]
+  },
+  {
+    "id": "Wall_034",
+    "kind": "wall",
+    "opening": "",
+    "x1": 14945.0,
+    "y1": 1712.52,
+    "x2": 15419.95,
+    "y2": 1712.52,
+    "length": 474.95,
+    "thickness": 125.0,
+    "base": 0.0,
+    "height": 3000.0,
+    "wall_type": "interior",
+    "layer": "geometry",
+    "shape": "rectangle",
+    "polygon": [
+      [
+        15419.9,
+        1775.0
+      ],
+      [
+        15419.9,
+        1650.0
+      ],
+      [
+        14945.0,
+        1650.0
+      ],
+      [
+        14945.0,
+        1775.0
+      ]
+    ]
+  },
+  {
+    "id": "Wall_035",
+    "kind": "wall",
+    "opening": "",
+    "x1": 7369.95,
+    "y1": 7737.52,
+    "x2": 7820.0,
+    "y2": 7737.52,
+    "length": 450.05,
+    "thickness": 125.0,
+    "base": 0.0,
+    "height": 3000.0,
+    "wall_type": "exterior",
+    "layer": "geometry",
+    "shape": "rectangle",
+    "polygon": [
+      [
+        7820.0,
+        7800.0
+      ],
+      [
+        7820.0,
+        7675.0
+      ],
+      [
+        7369.9,
+        7675.0
+      ],
+      [
+        7369.9,
+        7800.0
+      ]
+    ]
+  },
+  {
+    "id": "Wall_036",
+    "kind": "wall",
+    "opening": "",
+    "x1": 8420.0,
+    "y1": 7737.52,
+    "x2": 8869.95,
+    "y2": 7737.52,
+    "length": 449.95,
+    "thickness": 125.0,
+    "base": 0.0,
+    "height": 3000.0,
+    "wall_type": "exterior",
+    "layer": "geometry",
+    "shape": "rectangle",
+    "polygon": [
+      [
+        8869.9,
+        7800.0
+      ],
+      [
+        8869.9,
+        7675.0
+      ],
+      [
+        8420.0,
+        7675.0
+      ],
+      [
+        8420.0,
+        7800.0
+      ]
+    ]
+  },
+  {
+    "id": "Wall_037",
+    "kind": "wall",
+    "opening": "",
+    "x1": 9479.95,
+    "y1": 362.52,
+    "x2": 9870.0,
+    "y2": 362.52,
+    "length": 390.05,
+    "thickness": 125.0,
+    "base": 0.0,
+    "height": 3000.0,
+    "wall_type": "exterior",
+    "layer": "geometry",
+    "shape": "rectangle",
+    "polygon": [
+      [
+        9870.0,
+        425.0
+      ],
+      [
+        9870.0,
+        300.0
+      ],
+      [
+        9479.9,
+        300.0
+      ],
+      [
+        9479.9,
+        425.0
+      ]
+    ]
+  },
+  {
+    "id": "Wall_038",
+    "kind": "wall",
+    "opening": "",
+    "x1": 2007.45,
+    "y1": 3775.02,
+    "x2": 2007.45,
+    "y2": 4162.5,
+    "length": 387.48,
+    "thickness": 125.0,
+    "base": 0.0,
+    "height": 3000.0,
+    "wall_type": "exterior",
+    "layer": "geometry",
+    "shape": "rectangle",
+    "polygon": [
+      [
+        1944.9,
+        4162.5
+      ],
+      [
+        2069.9,
+        4162.5
+      ],
+      [
+        2069.9,
+        3775.0
+      ],
+      [
+        1944.9,
+        3775.0
+      ]
+    ]
+  },
+  {
+    "id": "Wall_039",
+    "kind": "wall",
+    "opening": "",
+    "x1": 2007.45,
+    "y1": 4762.5,
+    "x2": 2007.45,
+    "y2": 5125.02,
+    "length": 362.52,
+    "thickness": 125.0,
+    "base": 0.0,
+    "height": 3000.0,
+    "wall_type": "exterior",
+    "layer": "geometry",
+    "shape": "rectangle",
+    "polygon": [
+      [
+        1944.9,
+        5125.0
+      ],
+      [
+        2069.9,
+        5125.0
+      ],
+      [
+        2069.9,
+        4762.5
+      ],
+      [
+        1944.9,
+        4762.5
+      ]
+    ]
+  },
+  {
+    "id": "Wall_040",
+    "kind": "wall",
+    "opening": "",
+    "x1": 1249.95,
+    "y1": 7187.52,
+    "x2": 1600.0,
+    "y2": 7187.52,
+    "length": 350.05,
+    "thickness": 125.0,
+    "base": 0.0,
+    "height": 3000.0,
+    "wall_type": "interior",
+    "layer": "geometry",
+    "shape": "rectangle",
+    "polygon": [
+      [
+        1600.0,
+        7250.0
+      ],
+      [
+        1600.0,
+        7125.0
+      ],
+      [
+        1249.9,
+        7125.0
+      ],
+      [
+        1249.9,
+        7250.0
+      ]
+    ]
+  },
+  {
+    "id": "Wall_041",
+    "kind": "wall",
+    "opening": "",
+    "x1": 11969.95,
+    "y1": 0.0,
+    "x2": 11969.95,
+    "y2": 300.0,
+    "length": 300.0,
+    "thickness": 200.0,
+    "base": 0.0,
+    "height": 3000.0,
+    "wall_type": "exterior",
+    "layer": "geometry",
+    "shape": "rectangle",
+    "polygon": [
+      [
+        11869.9,
+        0.0
+      ],
+      [
+        11869.9,
+        300.0
+      ],
+      [
+        12069.9,
+        300.0
+      ],
+      [
+        12069.9,
+        0.0
+      ]
+    ]
+  },
+  {
+    "id": "Wall_042",
+    "kind": "wall",
+    "opening": "",
+    "x1": 7007.45,
+    "y1": 125.02,
+    "x2": 7007.45,
+    "y2": 425.0,
+    "length": 299.98,
+    "thickness": 125.0,
+    "base": 0.0,
+    "height": 3000.0,
+    "wall_type": "interior",
+    "layer": "geometry",
+    "shape": "rectangle",
+    "polygon": [
+      [
+        6944.9,
+        425.0
+      ],
+      [
+        7069.9,
+        425.0
+      ],
+      [
+        7069.9,
+        125.0
+      ],
+      [
+        6944.9,
+        125.0
+      ]
+    ]
+  },
+  {
+    "id": "Wall_043",
+    "kind": "wall",
+    "opening": "",
+    "x1": 8969.95,
+    "y1": 0.0,
+    "x2": 8969.95,
+    "y2": 265.02,
+    "length": 265.02,
+    "thickness": 200.0,
+    "base": 0.0,
+    "height": 3000.0,
+    "wall_type": "exterior",
+    "layer": "geometry",
+    "shape": "rectangle",
+    "polygon": [
+      [
+        8869.9,
+        265.0
+      ],
+      [
+        9069.9,
+        265.0
+      ],
+      [
+        9069.9,
+        0.0
+      ],
+      [
+        8869.9,
+        0.0
+      ]
+    ]
+  },
+  {
+    "id": "Wall_044",
+    "kind": "wall",
+    "opening": "",
+    "x1": 12069.95,
+    "y1": 1350.01,
+    "x2": 12319.95,
+    "y2": 1350.01,
+    "length": 250.0,
+    "thickness": 99.98,
+    "base": 0.0,
+    "height": 3000.0,
+    "wall_type": "interior",
+    "layer": "geometry",
+    "shape": "rectangle",
+    "polygon": [
+      [
+        12319.9,
+        1400.0
+      ],
+      [
+        12319.9,
+        1300.0
+      ],
+      [
+        12069.9,
+        1300.0
+      ],
+      [
+        12069.9,
+        1400.0
+      ]
+    ]
+  },
+  {
+    "id": "Post_02",
+    "kind": "wall",
+    "opening": "",
+    "x1": 12.45,
+    "y1": 3575.02,
+    "x2": 12.45,
+    "y2": 3775.02,
+    "length": 200.0,
+    "thickness": 125.0,
+    "base": 0.0,
+    "height": 3000.0,
+    "wall_type": "exterior",
+    "layer": "POST",
+    "shape": "rectangle",
+    "polygon": [
+      [
+        74.9,
+        3575.0
+      ],
+      [
+        -50.1,
+        3575.0
+      ],
+      [
+        -50.1,
+        3775.0
+      ],
+      [
+        74.9,
+        3775.0
+      ]
+    ]
+  },
+  {
+    "id": "Wall_045",
+    "kind": "wall",
+    "opening": "",
+    "x1": 5519.95,
+    "y1": 212.5,
+    "x2": 5719.95,
+    "y2": 212.5,
+    "length": 200.0,
+    "thickness": 175.0,
+    "base": 0.0,
+    "height": 3000.0,
+    "wall_type": "exterior",
+    "layer": "geometry",
+    "shape": "rectangle",
+    "polygon": [
+      [
+        5519.9,
+        300.0
+      ],
+      [
+        5719.9,
+        300.0
+      ],
+      [
+        5719.9,
+        125.0
+      ],
+      [
+        5519.9,
+        125.0
+      ]
+    ]
+  },
+  {
+    "id": "Post_03",
+    "kind": "wall",
+    "opening": "",
+    "x1": 12.45,
+    "y1": 850.02,
+    "x2": 12.45,
+    "y2": 1050.02,
+    "length": 200.0,
+    "thickness": 125.0,
+    "base": 0.0,
+    "height": 3000.0,
+    "wall_type": "exterior",
+    "layer": "POST",
+    "shape": "rectangle",
+    "polygon": [
+      [
+        74.9,
+        850.0
+      ],
+      [
+        -50.1,
+        850.0
+      ],
+      [
+        -50.1,
+        1050.0
+      ],
+      [
+        74.9,
+        1050.0
+      ]
+    ]
+  },
+  {
+    "id": "Post_01",
+    "kind": "wall",
+    "opening": "",
+    "x1": 15557.45,
+    "y1": 0.02,
+    "x2": 15557.45,
+    "y2": 125.02,
+    "length": 125.0,
+    "thickness": 125.0,
+    "base": 0.0,
+    "height": 3000.0,
+    "wall_type": "exterior",
+    "layer": "POST",
+    "shape": "rectangle",
+    "polygon": [
+      [
+        15619.9,
+        0.0
+      ],
+      [
+        15494.9,
+        0.0
+      ],
+      [
+        15494.9,
+        125.0
+      ],
+      [
+        15619.9,
+        125.0
+      ]
+    ]
+  },
+  {
+    "id": "Sill_Window_06",
+    "kind": "sill",
+    "opening": "window",
+    "x1": 12069.95,
+    "y1": 62.52,
+    "x2": 15494.9,
+    "y2": 62.52,
+    "length": 3424.95,
+    "thickness": 125.0,
+    "base": 0.0,
+    "height": 600.0,
+    "wall_type": "exterior",
+    "layer": "OPENING",
+    "shape": "rectangle",
+    "polygon": [
+      [
+        15494.9,
+        125.0
+      ],
+      [
+        15494.9,
+        0.0
+      ],
+      [
+        12069.9,
+        0.0
+      ],
+      [
+        12069.9,
+        125.0
+      ]
+    ]
+  },
+  {
+    "id": "Sill_Window_02",
+    "kind": "sill",
+    "opening": "window",
+    "x1": 12.45,
+    "y1": 1050.0,
+    "x2": 12.45,
+    "y2": 3575.0,
+    "length": 2525.0,
+    "thickness": 125.0,
+    "base": 0.0,
+    "height": 600.0,
+    "wall_type": "exterior",
+    "layer": "OPENING",
+    "shape": "rectangle",
+    "polygon": [
+      [
+        -50.1,
+        3575.0
+      ],
+      [
+        74.9,
+        3575.0
+      ],
+      [
+        74.9,
+        1050.0
+      ],
+      [
+        -50.1,
+        1050.0
+      ]
+    ]
+  },
+  {
+    "id": "Sill_Window_01",
+    "kind": "sill",
+    "opening": "window",
+    "x1": 1537.45,
+    "y1": 5325.0,
+    "x2": 1537.45,
+    "y2": 7125.02,
+    "length": 1800.02,
+    "thickness": 125.0,
+    "base": 0.0,
+    "height": 600.0,
+    "wall_type": "exterior",
+    "layer": "OPENING",
+    "shape": "rectangle",
+    "polygon": [
+      [
+        1474.9,
+        7125.0
+      ],
+      [
+        1599.9,
+        7125.0
+      ],
+      [
+        1599.9,
+        5325.0
+      ],
+      [
+        1474.9,
+        5325.0
+      ]
+    ]
+  },
+  {
+    "id": "Sill_Window_04",
+    "kind": "sill",
+    "opening": "window",
+    "x1": 7069.95,
+    "y1": 362.52,
+    "x2": 8869.95,
+    "y2": 362.52,
+    "length": 1800.0,
+    "thickness": 125.0,
+    "base": 0.0,
+    "height": 600.0,
+    "wall_type": "exterior",
+    "layer": "OPENING",
+    "shape": "rectangle",
+    "polygon": [
+      [
+        8869.9,
+        425.0
+      ],
+      [
+        8869.9,
+        300.0
+      ],
+      [
+        7069.9,
+        300.0
+      ],
+      [
+        7069.9,
+        425.0
+      ]
+    ]
+  },
+  {
+    "id": "Sill_Window_05",
+    "kind": "sill",
+    "opening": "window",
+    "x1": 9870.0,
+    "y1": 362.52,
+    "x2": 11070.0,
+    "y2": 362.52,
+    "length": 1200.0,
+    "thickness": 125.0,
+    "base": 0.0,
+    "height": 600.0,
+    "wall_type": "exterior",
+    "layer": "OPENING",
+    "shape": "rectangle",
+    "polygon": [
+      [
+        11070.0,
+        425.0
+      ],
+      [
+        11070.0,
+        300.0
+      ],
+      [
+        9870.0,
+        300.0
+      ],
+      [
+        9870.0,
+        425.0
+      ]
+    ]
+  },
+  {
+    "id": "Sill_Window_03",
+    "kind": "sill",
+    "opening": "window",
+    "x1": 15557.45,
+    "y1": 125.0,
+    "x2": 15557.45,
+    "y2": 1175.02,
+    "length": 1050.02,
+    "thickness": 125.0,
+    "base": 0.0,
+    "height": 600.0,
+    "wall_type": "exterior",
+    "layer": "OPENING",
+    "shape": "rectangle",
+    "polygon": [
+      [
+        15494.9,
+        1175.0
+      ],
+      [
+        15619.9,
+        1175.0
+      ],
+      [
+        15619.9,
+        125.0
+      ],
+      [
+        15494.9,
+        125.0
+      ]
+    ]
+  },
+  {
+    "id": "Sill_Vent_07",
+    "kind": "sill",
+    "opening": "window",
+    "x1": 3770.0,
+    "y1": 362.52,
+    "x2": 4770.0,
+    "y2": 362.52,
+    "length": 1000.0,
+    "thickness": 125.0,
+    "base": 0.0,
+    "height": 600.0,
+    "wall_type": "exterior",
+    "layer": "OPENING",
+    "shape": "rectangle",
+    "polygon": [
+      [
+        4770.0,
+        425.0
+      ],
+      [
+        4770.0,
+        300.0
+      ],
+      [
+        3770.0,
+        300.0
+      ],
+      [
+        3770.0,
+        425.0
+      ]
+    ]
+  },
+  {
+    "id": "Sill_Vent_01",
+    "kind": "sill",
+    "opening": "vent",
+    "x1": 7294.95,
+    "y1": 7800.02,
+    "x2": 7294.95,
+    "y2": 8475.02,
+    "length": 675.0,
+    "thickness": 150.0,
+    "base": 0.0,
+    "height": 1200.0,
+    "wall_type": "exterior",
+    "layer": "OPENING",
+    "shape": "rectangle",
+    "polygon": [
+      [
+        7219.9,
+        8475.0
+      ],
+      [
+        7369.9,
+        8475.0
+      ],
+      [
+        7369.9,
+        7800.0
+      ],
+      [
+        7219.9,
+        7800.0
+      ]
+    ]
+  },
+  {
+    "id": "Sill_Vent_02",
+    "kind": "sill",
+    "opening": "vent",
+    "x1": 7820.0,
+    "y1": 7737.52,
+    "x2": 8420.0,
+    "y2": 7737.52,
+    "length": 600.0,
+    "thickness": 125.0,
+    "base": 0.0,
+    "height": 1200.0,
+    "wall_type": "exterior",
+    "layer": "OPENING",
+    "shape": "rectangle",
+    "polygon": [
+      [
+        8420.0,
+        7800.0
+      ],
+      [
+        8420.0,
+        7675.0
+      ],
+      [
+        7820.0,
+        7675.0
+      ],
+      [
+        7820.0,
+        7800.0
+      ]
+    ]
+  },
+  {
+    "id": "Sill_Vent_03",
+    "kind": "sill",
+    "opening": "vent",
+    "x1": 2007.45,
+    "y1": 4162.5,
+    "x2": 2007.45,
+    "y2": 4762.5,
+    "length": 600.0,
+    "thickness": 125.0,
+    "base": 0.0,
+    "height": 1200.0,
+    "wall_type": "exterior",
+    "layer": "OPENING",
+    "shape": "rectangle",
+    "polygon": [
+      [
+        1944.9,
+        4762.5
+      ],
+      [
+        2069.9,
+        4762.5
+      ],
+      [
+        2069.9,
+        4162.5
+      ],
+      [
+        1944.9,
+        4162.5
+      ]
+    ]
+  },
+  {
+    "id": "Sill_Vent_05",
+    "kind": "sill",
+    "opening": "vent",
+    "x1": 16120.0,
+    "y1": 2937.52,
+    "x2": 16720.0,
+    "y2": 2937.52,
+    "length": 600.0,
+    "thickness": 125.0,
+    "base": 0.0,
+    "height": 1200.0,
+    "wall_type": "interior",
+    "layer": "OPENING",
+    "shape": "rectangle",
+    "polygon": [
+      [
+        16720.0,
+        3000.0
+      ],
+      [
+        16720.0,
+        2875.0
+      ],
+      [
+        16120.0,
+        2875.0
+      ],
+      [
+        16120.0,
+        3000.0
+      ]
+    ]
+  },
+  {
+    "id": "Sill_Vent_04",
+    "kind": "sill",
+    "opening": "window",
+    "x1": 74.9,
+    "y1": 3675.02,
+    "x2": 575.0,
+    "y2": 3675.02,
+    "length": 500.1,
+    "thickness": 150.0,
+    "base": 0.0,
+    "height": 600.0,
+    "wall_type": "exterior",
+    "layer": "OPENING",
+    "shape": "rectangle",
+    "polygon": [
+      [
+        575.0,
+        3750.0
+      ],
+      [
+        575.0,
+        3600.0
+      ],
+      [
+        74.9,
+        3600.0
+      ],
+      [
+        74.9,
+        3750.0
+      ]
+    ]
+  },
+  {
+    "id": "Sill_Vent_06",
+    "kind": "sill",
+    "opening": "window",
+    "x1": 74.9,
+    "y1": 950.02,
+    "x2": 574.95,
+    "y2": 950.02,
+    "length": 500.05,
+    "thickness": 200.0,
+    "base": 0.0,
+    "height": 600.0,
+    "wall_type": "exterior",
+    "layer": "OPENING",
+    "shape": "rectangle",
+    "polygon": [
+      [
+        574.9,
+        1050.0
+      ],
+      [
+        574.9,
+        850.0
+      ],
+      [
+        74.9,
+        850.0
+      ],
+      [
+        74.9,
+        1050.0
+      ]
+    ]
+  },
+  {
+    "id": "Lintel_Window_001",
+    "kind": "lintel",
+    "opening": "window",
+    "x1": 12069.95,
+    "y1": 62.52,
+    "x2": 15494.9,
+    "y2": 62.52,
+    "length": 3424.95,
+    "thickness": 125.0,
+    "base": 2100.0,
+    "height": 900.0,
+    "wall_type": "exterior",
+    "layer": "OPENING",
+    "shape": "rectangle",
+    "polygon": [
+      [
+        15494.9,
+        125.0
+      ],
+      [
+        15494.9,
+        0.0
+      ],
+      [
+        12069.9,
+        0.0
+      ],
+      [
+        12069.9,
+        125.0
+      ]
+    ]
+  },
+  {
+    "id": "Lintel_Window_002",
+    "kind": "lintel",
+    "opening": "window",
+    "x1": 12.45,
+    "y1": 1050.0,
+    "x2": 12.45,
+    "y2": 3575.0,
+    "length": 2525.0,
+    "thickness": 125.0,
+    "base": 2100.0,
+    "height": 900.0,
+    "wall_type": "exterior",
+    "layer": "OPENING",
+    "shape": "rectangle",
+    "polygon": [
+      [
+        -50.1,
+        3575.0
+      ],
+      [
+        74.9,
+        3575.0
+      ],
+      [
+        74.9,
+        1050.0
+      ],
+      [
+        -50.1,
+        1050.0
+      ]
+    ]
+  },
+  {
+    "id": "Lintel_Passage_004",
+    "kind": "lintel",
+    "opening": "passage",
+    "x1": 12545.0,
+    "y1": 1712.52,
+    "x2": 14945.0,
+    "y2": 1712.52,
+    "length": 2400.0,
+    "thickness": 125.0,
+    "base": 2100.0,
+    "height": 900.0,
+    "wall_type": "interior",
+    "layer": "OPENING",
+    "shape": "rectangle",
+    "polygon": [
+      [
+        14945.0,
+        1775.0
+      ],
+      [
+        14945.0,
+        1650.0
+      ],
+      [
+        12545.0,
+        1650.0
+      ],
+      [
+        12545.0,
+        1775.0
+      ]
+    ]
+  },
+  {
+    "id": "Lintel_Window_007",
+    "kind": "lintel",
+    "opening": "window",
+    "x1": 1537.45,
+    "y1": 5325.0,
+    "x2": 1537.45,
+    "y2": 7125.02,
+    "length": 1800.02,
+    "thickness": 125.0,
+    "base": 2100.0,
+    "height": 900.0,
+    "wall_type": "exterior",
+    "layer": "OPENING",
+    "shape": "rectangle",
+    "polygon": [
+      [
+        1474.9,
+        7125.0
+      ],
+      [
+        1599.9,
+        7125.0
+      ],
+      [
+        1599.9,
+        5325.0
+      ],
+      [
+        1474.9,
+        5325.0
+      ]
+    ]
+  },
+  {
+    "id": "Lintel_Window_006",
+    "kind": "lintel",
+    "opening": "window",
+    "x1": 7069.95,
+    "y1": 362.52,
+    "x2": 8869.95,
+    "y2": 362.52,
+    "length": 1800.0,
+    "thickness": 125.0,
+    "base": 2100.0,
+    "height": 900.0,
+    "wall_type": "exterior",
+    "layer": "OPENING",
+    "shape": "rectangle",
+    "polygon": [
+      [
+        8869.9,
+        425.0
+      ],
+      [
+        8869.9,
+        300.0
+      ],
+      [
+        7069.9,
+        300.0
+      ],
+      [
+        7069.9,
+        425.0
+      ]
+    ]
+  },
+  {
+    "id": "Lintel_Window_008",
+    "kind": "lintel",
+    "opening": "window",
+    "x1": 9870.0,
+    "y1": 362.52,
+    "x2": 11070.0,
+    "y2": 362.52,
+    "length": 1200.0,
+    "thickness": 125.0,
+    "base": 2100.0,
+    "height": 900.0,
+    "wall_type": "exterior",
+    "layer": "OPENING",
+    "shape": "rectangle",
+    "polygon": [
+      [
+        11070.0,
+        425.0
+      ],
+      [
+        11070.0,
+        300.0
+      ],
+      [
+        9870.0,
+        300.0
+      ],
+      [
+        9870.0,
+        425.0
+      ]
+    ]
+  },
+  {
+    "id": "Lintel_Door_003",
+    "kind": "lintel",
+    "opening": "door",
+    "x1": 5644.95,
+    "y1": 4075.02,
+    "x2": 5644.95,
+    "y2": 5250.0,
+    "length": 1174.98,
+    "thickness": 150.0,
+    "base": 2100.0,
+    "height": 900.0,
+    "wall_type": "interior",
+    "layer": "OPENING",
+    "shape": "rectangle",
+    "polygon": [
+      [
+        5569.9,
+        5250.0
+      ],
+      [
+        5719.9,
+        5250.0
+      ],
+      [
+        5719.9,
+        4075.0
+      ],
+      [
+        5569.9,
+        4075.0
+      ]
+    ]
+  },
+  {
+    "id": "Lintel_Window_003",
+    "kind": "lintel",
+    "opening": "window",
+    "x1": 15557.45,
+    "y1": 125.0,
+    "x2": 15557.45,
+    "y2": 1175.02,
+    "length": 1050.02,
+    "thickness": 125.0,
+    "base": 2100.0,
+    "height": 900.0,
+    "wall_type": "exterior",
+    "layer": "OPENING",
+    "shape": "rectangle",
+    "polygon": [
+      [
+        15494.9,
+        1175.0
+      ],
+      [
+        15619.9,
+        1175.0
+      ],
+      [
+        15619.9,
+        125.0
+      ],
+      [
+        15494.9,
+        125.0
+      ]
+    ]
+  },
+  {
+    "id": "Lintel_Door_002",
+    "kind": "lintel",
+    "opening": "door",
+    "x1": 8969.95,
+    "y1": 4075.0,
+    "x2": 8969.95,
+    "y2": 5125.0,
+    "length": 1050.0,
+    "thickness": 200.0,
+    "base": 2100.0,
+    "height": 900.0,
+    "wall_type": "interior",
+    "layer": "OPENING",
+    "shape": "rectangle",
+    "polygon": [
+      [
+        8869.9,
+        5125.0
+      ],
+      [
+        9069.9,
+        5125.0
+      ],
+      [
+        9069.9,
+        4075.0
+      ],
+      [
+        8869.9,
+        4075.0
+      ]
+    ]
+  },
+  {
+    "id": "Lintel_Door_008",
+    "kind": "lintel",
+    "opening": "door",
+    "x1": 16170.0,
+    "y1": 6937.52,
+    "x2": 17219.95,
+    "y2": 6937.52,
+    "length": 1049.95,
+    "thickness": 125.0,
+    "base": 2100.0,
+    "height": 900.0,
+    "wall_type": "exterior",
+    "layer": "OPENING",
+    "shape": "rectangle",
+    "polygon": [
+      [
+        17219.9,
+        7000.0
+      ],
+      [
+        17219.9,
+        6875.0
+      ],
+      [
+        16170.0,
+        6875.0
+      ],
+      [
+        16170.0,
+        7000.0
+      ]
+    ]
+  },
+  {
+    "id": "Lintel_Window_009",
+    "kind": "lintel",
+    "opening": "window",
+    "x1": 3770.0,
+    "y1": 362.52,
+    "x2": 4770.0,
+    "y2": 362.52,
+    "length": 1000.0,
+    "thickness": 125.0,
+    "base": 2100.0,
+    "height": 900.0,
+    "wall_type": "exterior",
+    "layer": "OPENING",
+    "shape": "rectangle",
+    "polygon": [
+      [
+        4770.0,
+        425.0
+      ],
+      [
+        4770.0,
+        300.0
+      ],
+      [
+        3770.0,
+        300.0
+      ],
+      [
+        3770.0,
+        425.0
+      ]
+    ]
+  },
+  {
+    "id": "Lintel_Door_010",
+    "kind": "lintel",
+    "opening": "door",
+    "x1": 5519.95,
+    "y1": 3767.78,
+    "x2": 4619.95,
+    "y2": 3767.78,
+    "length": 900.0,
+    "thickness": 150.0,
+    "base": 2100.0,
+    "height": 900.0,
+    "wall_type": "interior",
+    "layer": "OPENING",
+    "shape": "rectangle",
+    "polygon": [
+      [
+        4619.9,
+        3692.8
+      ],
+      [
+        4619.9,
+        3842.8
+      ],
+      [
+        5519.9,
+        3842.8
+      ],
+      [
+        5519.9,
+        3692.8
+      ]
+    ]
+  },
+  {
+    "id": "Lintel_Door_006",
+    "kind": "lintel",
+    "opening": "door",
+    "x1": 7970.0,
+    "y1": 4000.02,
+    "x2": 8869.95,
+    "y2": 4000.02,
+    "length": 899.95,
+    "thickness": 150.0,
+    "base": 2100.0,
+    "height": 900.0,
+    "wall_type": "interior",
+    "layer": "OPENING",
+    "shape": "rectangle",
+    "polygon": [
+      [
+        8869.9,
+        4075.0
+      ],
+      [
+        8869.9,
+        3925.0
+      ],
+      [
+        7970.0,
+        3925.0
+      ],
+      [
+        7970.0,
+        4075.0
+      ]
+    ]
+  },
+  {
+    "id": "Lintel_Door_001",
+    "kind": "lintel",
+    "opening": "door",
+    "x1": 17294.95,
+    "y1": 3900.0,
+    "x2": 17294.95,
+    "y2": 4650.0,
+    "length": 750.0,
+    "thickness": 150.0,
+    "base": 2100.0,
+    "height": 900.0,
+    "wall_type": "exterior",
+    "layer": "OPENING",
+    "shape": "rectangle",
+    "polygon": [
+      [
+        17219.9,
+        4650.0
+      ],
+      [
+        17369.9,
+        4650.0
+      ],
+      [
+        17369.9,
+        3900.0
+      ],
+      [
+        17219.9,
+        3900.0
+      ]
+    ]
+  },
+  {
+    "id": "Lintel_Door_009",
+    "kind": "lintel",
+    "opening": "door",
+    "x1": 5644.95,
+    "y1": 6683.34,
+    "x2": 5644.95,
+    "y2": 5975.02,
+    "length": 708.32,
+    "thickness": 150.0,
+    "base": 2100.0,
+    "height": 900.0,
+    "wall_type": "interior",
+    "layer": "OPENING",
+    "shape": "rectangle",
+    "polygon": [
+      [
+        5719.9,
+        5975.0
+      ],
+      [
+        5569.9,
+        5975.0
+      ],
+      [
+        5569.9,
+        6683.3
+      ],
+      [
+        5719.9,
+        6683.3
+      ]
+    ]
+  },
+  {
+    "id": "Lintel_Door_005",
+    "kind": "lintel",
+    "opening": "door",
+    "x1": 3761.66,
+    "y1": 3700.02,
+    "x2": 4469.95,
+    "y2": 3700.02,
+    "length": 708.29,
+    "thickness": 150.0,
+    "base": 2100.0,
+    "height": 900.0,
+    "wall_type": "interior",
+    "layer": "OPENING",
+    "shape": "rectangle",
+    "polygon": [
+      [
+        4469.9,
+        3775.0
+      ],
+      [
+        4469.9,
+        3625.0
+      ],
+      [
+        3761.7,
+        3625.0
+      ],
+      [
+        3761.7,
+        3775.0
+      ]
+    ]
+  },
+  {
+    "id": "Lintel_Door_007",
+    "kind": "lintel",
+    "opening": "door",
+    "x1": 8161.66,
+    "y1": 5200.02,
+    "x2": 8869.95,
+    "y2": 5200.02,
+    "length": 708.29,
+    "thickness": 150.0,
+    "base": 2100.0,
+    "height": 900.0,
+    "wall_type": "interior",
+    "layer": "OPENING",
+    "shape": "rectangle",
+    "polygon": [
+      [
+        8869.9,
+        5275.0
+      ],
+      [
+        8869.9,
+        5125.0
+      ],
+      [
+        8161.7,
+        5125.0
+      ],
+      [
+        8161.7,
+        5275.0
+      ]
+    ]
+  },
+  {
+    "id": "Lintel_Window_010",
+    "kind": "lintel",
+    "opening": "vent",
+    "x1": 7294.95,
+    "y1": 7800.02,
+    "x2": 7294.95,
+    "y2": 8475.02,
+    "length": 675.0,
+    "thickness": 150.0,
+    "base": 2100.0,
+    "height": 900.0,
+    "wall_type": "exterior",
+    "layer": "OPENING",
+    "shape": "rectangle",
+    "polygon": [
+      [
+        7219.9,
+        8475.0
+      ],
+      [
+        7369.9,
+        8475.0
+      ],
+      [
+        7369.9,
+        7800.0
+      ],
+      [
+        7219.9,
+        7800.0
+      ]
+    ]
+  },
+  {
+    "id": "Lintel_Window_011",
+    "kind": "lintel",
+    "opening": "vent",
+    "x1": 7820.0,
+    "y1": 7737.52,
+    "x2": 8420.0,
+    "y2": 7737.52,
+    "length": 600.0,
+    "thickness": 125.0,
+    "base": 2100.0,
+    "height": 900.0,
+    "wall_type": "exterior",
+    "layer": "OPENING",
+    "shape": "rectangle",
+    "polygon": [
+      [
+        8420.0,
+        7800.0
+      ],
+      [
+        8420.0,
+        7675.0
+      ],
+      [
+        7820.0,
+        7675.0
+      ],
+      [
+        7820.0,
+        7800.0
+      ]
+    ]
+  },
+  {
+    "id": "Lintel_Window_012",
+    "kind": "lintel",
+    "opening": "vent",
+    "x1": 2007.45,
+    "y1": 4162.5,
+    "x2": 2007.45,
+    "y2": 4762.5,
+    "length": 600.0,
+    "thickness": 125.0,
+    "base": 2100.0,
+    "height": 900.0,
+    "wall_type": "exterior",
+    "layer": "OPENING",
+    "shape": "rectangle",
+    "polygon": [
+      [
+        1944.9,
+        4762.5
+      ],
+      [
+        2069.9,
+        4762.5
+      ],
+      [
+        2069.9,
+        4162.5
+      ],
+      [
+        1944.9,
+        4162.5
+      ]
+    ]
+  },
+  {
+    "id": "Lintel_Window_013",
+    "kind": "lintel",
+    "opening": "vent",
+    "x1": 16120.0,
+    "y1": 2937.52,
+    "x2": 16720.0,
+    "y2": 2937.52,
+    "length": 600.0,
+    "thickness": 125.0,
+    "base": 2100.0,
+    "height": 900.0,
+    "wall_type": "interior",
+    "layer": "OPENING",
+    "shape": "rectangle",
+    "polygon": [
+      [
+        16720.0,
+        3000.0
+      ],
+      [
+        16720.0,
+        2875.0
+      ],
+      [
+        16120.0,
+        2875.0
+      ],
+      [
+        16120.0,
+        3000.0
+      ]
+    ]
+  },
+  {
+    "id": "Lintel_Window_004",
+    "kind": "lintel",
+    "opening": "window",
+    "x1": 74.9,
+    "y1": 3675.02,
+    "x2": 575.0,
+    "y2": 3675.02,
+    "length": 500.1,
+    "thickness": 150.0,
+    "base": 2100.0,
+    "height": 900.0,
+    "wall_type": "exterior",
+    "layer": "OPENING",
+    "shape": "rectangle",
+    "polygon": [
+      [
+        575.0,
+        3750.0
+      ],
+      [
+        575.0,
+        3600.0
+      ],
+      [
+        74.9,
+        3600.0
+      ],
+      [
+        74.9,
+        3750.0
+      ]
+    ]
+  },
+  {
+    "id": "Lintel_Window_005",
+    "kind": "lintel",
+    "opening": "window",
+    "x1": 74.9,
+    "y1": 950.02,
+    "x2": 574.95,
+    "y2": 950.02,
+    "length": 500.05,
+    "thickness": 200.0,
+    "base": 2100.0,
+    "height": 900.0,
+    "wall_type": "exterior",
+    "layer": "OPENING",
+    "shape": "rectangle",
+    "polygon": [
+      [
+        574.9,
+        1050.0
+      ],
+      [
+        574.9,
+        850.0
+      ],
+      [
+        74.9,
+        850.0
+      ],
+      [
+        74.9,
+        1050.0
+      ]
+    ]
+  }
+]
