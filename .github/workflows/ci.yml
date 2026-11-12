@@ -28,11 +28,16 @@ jobs:
           python-version: ${{ matrix.python-version }}
           cache: pip
 
-      - name: Install headless Blender (for 3D FBX slicing & .blend/.fbx export on Python 3.12)
+      - name: Install official headless Blender 5.1 (for 3D FBX slicing & .blend/.fbx export on Python 3.12)
         if: matrix.python-version == '3.12'
         run: |
           sudo apt-get update
-          sudo apt-get install -y blender python3-numpy
+          sudo apt-get install -y --no-install-recommends xz-utils libx11-6 libxi6 libxfixes3 libxrender1 libxxf86vm1 libxkbcommon0 libsm6 libgl1 libegl1
+          curl -fsSL https://download.blender.org/release/Blender5.1/blender-5.1.0-linux-x64.tar.xz -o /tmp/blender.tar.xz
+          sudo tar -xJf /tmp/blender.tar.xz -C /opt
+          sudo ln -sf /opt/blender-5.1.0-linux-x64/blender /usr/local/bin/blender
+          rm -f /tmp/blender.tar.xz
+          blender --version
 
       - name: Install Python dependencies
         run: |

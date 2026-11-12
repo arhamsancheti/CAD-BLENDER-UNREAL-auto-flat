@@ -398,8 +398,8 @@ print("BLENDER_VERIFY_JSON:" + json.dumps(report))
         fh.write(inspector_code)
 
     export_dir = os.path.join(ROOT, 'output', '_test_export', os.path.splitext(os.path.basename(script_path))[0])
-    env = dict(
-        os.environ,
+    env = {k: v for k, v in os.environ.items() if k not in ('PYTHONHOME', 'PYTHONPATH')}
+    env.update(
         CAD_EXPORT_DIR=export_dir,
         CAD_EXPORT_NAME='Test_Model',
         CAD_REQUIRE_RAILINGS='1' if require_balcony_railings else '0',
@@ -415,7 +415,9 @@ print("BLENDER_VERIFY_JSON:" + json.dumps(report))
         raise RuntimeError(f"Blender failed (code {proc.returncode}):\nSTDOUT:\n{proc.stdout}\nSTDERR:\n{proc.stderr}")
     for fn in ('Test_Model_Unreal.fbx', 'Test_Model_3dsMax.fbx', 'Test_Model.blend'):
         fp = os.path.join(export_dir, fn)
-        assert os.path.isfile(fp) and os.path.getsize(fp) > 10000, f"Missing Unreal/3ds Max export file {fp}"
+        assert os.path.isfile(fp) and os.path.getsize(fp) > 10000, (
+            f"Missing Unreal/3ds Max export file {fp}\nSTDOUT:\n{proc.stdout[-1500:]}\nSTDERR:\n{proc.stderr[-1500:]}"
+        )
 
     marker = "BLENDER_VERIFY_JSON:"
     for line in proc.stdout.splitlines():
