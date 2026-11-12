@@ -184,16 +184,23 @@ def _write_minimal_dxf(wall_segs, layered_segs, texts, out_path):
 
 
 def process_fbx(fbx_path, out_dxf_path, cut_z_ratio=0.35):
-    _patch_blender_fbx_bug()
-
     bpy.ops.wm.read_factory_settings(use_empty=True)
-    bpy.ops.import_scene.fbx(
-        filepath=fbx_path,
-        use_image_search=False,
-        use_anim=False,
-        use_custom_props=False,
-        use_subsurf=False,
-    )
+    if hasattr(bpy.ops.wm, 'fbx_import'):
+        bpy.ops.wm.fbx_import(filepath=fbx_path)
+    else:
+        try:
+            import addon_utils
+            addon_utils.enable('io_scene_fbx', default_set=True)
+        except Exception:
+            pass
+        _patch_blender_fbx_bug()
+        bpy.ops.import_scene.fbx(
+            filepath=fbx_path,
+            use_image_search=False,
+            use_anim=False,
+            use_custom_props=False,
+            use_subsurf=False,
+        )
 
     mesh_objs = [obj for obj in bpy.context.scene.objects if obj.type == 'MESH']
     if not mesh_objs:

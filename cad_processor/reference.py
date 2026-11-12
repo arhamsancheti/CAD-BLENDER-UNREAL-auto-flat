@@ -75,20 +75,25 @@ ext = in_path.lower().rsplit(".", 1)[-1]
 
 bpy.ops.wm.read_factory_settings(use_empty=True)
 if ext == "fbx":
-    try:
-        from io_scene_fbx import import_fbx
-        _orig_read_light = import_fbx.blen_read_light
-        def _safe_read_light(fbx_tmpl, fbx_obj, settings):
-            try:
-                return _orig_read_light(fbx_tmpl, fbx_obj, settings)
-            except AttributeError as e:
-                if "cast_shadow" in str(e):
-                    return None
-                raise
-        import_fbx.blen_read_light = _safe_read_light
-    except Exception:
-        pass
-    bpy.ops.import_scene.fbx(filepath=in_path)
+    if hasattr(bpy.ops.wm, "fbx_import"):
+        bpy.ops.wm.fbx_import(filepath=in_path)
+    else:
+        try:
+            import addon_utils
+            addon_utils.enable("io_scene_fbx", default_set=True)
+            from io_scene_fbx import import_fbx
+            _orig_read_light = import_fbx.blen_read_light
+            def _safe_read_light(fbx_tmpl, fbx_obj, settings):
+                try:
+                    return _orig_read_light(fbx_tmpl, fbx_obj, settings)
+                except AttributeError as e:
+                    if "cast_shadow" in str(e):
+                        return None
+                    raise
+            import_fbx.blen_read_light = _safe_read_light
+        except Exception:
+            pass
+        bpy.ops.import_scene.fbx(filepath=in_path)
 elif ext == "obj":
     bpy.ops.wm.obj_import(filepath=in_path)
 elif ext in ("glb", "gltf"):
@@ -150,11 +155,12 @@ with open(out_json, "w") as f:
     with open(script_path, 'w', encoding='utf-8') as fh:
         fh.write(script)
     try:
-        subprocess.run([blender_exe, '--background', '--factory-startup', '--python', script_path, '--',
-                        os.path.abspath(filepath), json_path],
-                       capture_output=True, text=True, timeout=90)
+        proc = subprocess.run([blender_exe, '--background', '--factory-startup', '--python', script_path, '--',
+                               os.path.abspath(filepath), json_path],
+                              capture_output=True, text=True, timeout=90)
         if not os.path.isfile(json_path):
-            return {'ok': False, 'error': 'Blender reference extraction produced no output'}
+            tail = (proc.stderr or proc.stdout or '')[-400:].strip()
+            return {'ok': False, 'error': f'Blender reference extraction produced no output: {tail}'}
         with open(json_path, 'r', encoding='utf-8') as fh:
             data = json.load(fh)
     except Exception as ex:

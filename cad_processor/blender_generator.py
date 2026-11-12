@@ -2245,6 +2245,11 @@ def export_for_unreal_and_3dsmax():
             lc.hide_viewport = False
             vl.active_layer_collection = lc
             path = os.path.join(root, f'{name}_{target}.fbx')
+            try:
+                import addon_utils
+                addon_utils.enable('io_scene_fbx', default_set=True)
+            except Exception:
+                pass
             bpy.ops.export_scene.fbx(
                 filepath=path, use_active_collection=True, use_selection=False, use_visible=False,
                 object_types={'EMPTY', 'MESH', 'LIGHT', 'CAMERA'} if include_lights else {'EMPTY', 'MESH'},
