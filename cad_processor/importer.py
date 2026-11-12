@@ -49,9 +49,12 @@ class CADImporter:
 
     @staticmethod
     def _find_libredwg() -> str:
-        base = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-        hits = glob.glob(os.path.join(base, "tools", "libredwg", "**", "dwg2dxf.exe"), recursive=True)
-        return hits[0] if hits else (shutil.which("dwg2dxf") or "")
+        if os.name == "nt":
+            base = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+            hits = glob.glob(os.path.join(base, "tools", "libredwg", "**", "dwg2dxf.exe"), recursive=True)
+            if hits:
+                return hits[0]
+        return shutil.which("dwg2dxf") or ""
 
     def _convert_with_libredwg(self, filepath: str) -> str:
         exe = self._find_libredwg()
@@ -113,6 +116,9 @@ class CADImporter:
 
     @staticmethod
     def _find_blender() -> str:
+        env_exe = os.environ.get("BLENDER_EXE", "")
+        if env_exe and os.path.isfile(env_exe):
+            return env_exe
         exe = shutil.which("blender")
         if exe:
             return exe
@@ -120,8 +126,8 @@ class CADImporter:
             r"C:\Program Files\Blender Foundation\Blender*\blender.exe",
             r"C:\Program Files (x86)\Blender Foundation\Blender*\blender.exe",
         ]
-        for pat in patterns:
-            hits = glob.glob(pat)
+        for pat in sorted(patterns, reverse=True):
+            hits = sorted(glob.glob(pat), reverse=True)
             if hits:
                 return hits[0]
         return ""

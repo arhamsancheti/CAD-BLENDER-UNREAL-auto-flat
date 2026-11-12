@@ -126,14 +126,28 @@ def _sample_path(sample_name: str, upload_fallback: str) -> str:
     return os.path.join(ROOT, 'uploads', upload_fallback)
 
 
+def _find_blender_exe() -> str | None:
+    """Locate Blender executable from BLENDER_EXE env, PATH, or Windows Program Files."""
+    import glob
+    import shutil
+    if os.environ.get('CAD_NO_BLENDER') == '1':
+        return None
+    cands = [os.environ.get('BLENDER_EXE'), shutil.which('blender')]
+    cands.extend(sorted(glob.glob(r"C:\Program Files\Blender Foundation\Blender*\blender.exe"), reverse=True))
+    return next((c for c in cands if c and os.path.isfile(c)), None)
+
+
 def test_existing_project_plans_and_multi_reference() -> dict:
-    """Verify Requirement 3, 6, 7, 8, 9 across all project floor plans (.dxf, .png, .fbx reference)."""
+    """Verify Requirement 3, 6, 7, 8, 9 across all project floor plans (.dxf, .docx, .pdf, .png, .fbx reference)."""
     print("\n=== [Test 2] End-to-End Pipeline & Multi-Reference Validation on Project Plans ===")
     out_dir = os.path.join(ROOT, 'output')
     os.makedirs(out_dir, exist_ok=True)
     results = {}
 
+    has_blender = _find_blender_exe() is not None
     fbx_3bhk = _sample_path('3BHK_Type1_1266SQ.fbx', '1792227439399_3BHK_Type1_1266SQ.fbx')
+    png_3bhk = _sample_path('3BHK_Flat.png', '1792227589833_3BHK_Flat.png')
+
     cases = [
         (
             '3_Bhk_DXF',
@@ -150,16 +164,23 @@ def test_existing_project_plans_and_multi_reference() -> dict:
             2,
         ),
         (
-            '3BHK_Flat_PNG_with_FBX_Ref',
-            _sample_path('3BHK_Flat.png', '1792227589833_3BHK_Flat.png'),
-            {'references': [fbx_3bhk]},
+            '3BHK_Spec_DOCX',
+            _sample_path('3BHK_Specification.docx', '1793086283186_3BHK_Specification.docx'),
+            {},
             3,
             0,
         ),
         (
-            '3BHK_Type1_FBX_Direct',
-            fbx_3bhk,
+            '3BHK_Spec_PDF',
+            _sample_path('3BHK_Specification.pdf', '1793086268405_3BHK_Specification.pdf'),
             {},
+            3,
+            0,
+        ),
+        (
+            '3BHK_Flat_PNG_with_Ref',
+            png_3bhk,
+            {'references': [fbx_3bhk if has_blender else png_3bhk]},
             3,
             0,
         ),
@@ -171,6 +192,19 @@ def test_existing_project_plans_and_multi_reference() -> dict:
             0,
         ),
     ]
+    if has_blender:
+        cases.insert(
+            5,
+            (
+                '3BHK_Type1_FBX_Direct',
+                fbx_3bhk,
+                {},
+                3,
+                0,
+            ),
+        )
+    else:
+        print("  SKIP [3BHK_Type1_FBX_Direct]: Blender not installed (skipping 3D FBX slicing)")
 
     for label, path, opts, expected_washrooms, max_uncertain in cases:
         res = CADtoBlenderPipeline().process(path, options=opts)
@@ -195,7 +229,7 @@ def test_existing_project_plans_and_multi_reference() -> dict:
         assert len(washrooms) == expected_washrooms, (
             f"{label}: expected {expected_washrooms} washrooms, got {len(washrooms)} ({[r['name'] for r in washrooms]})"
         )
-        if '3BHK' in label:
+        if label.startswith('3BHK_Flat_') or label.startswith('3BHK_Type1_'):
             floor_objs = {r.get('floor_obj') for r in rooms if r.get('floor_obj')}
             for req_floor in ('Floor_Balcony_01', 'Floor_Balcony_02', 'Floor_DryBalcony_01',
                               'Floor_MasterBedroom_Wood', 'Floor_Entrance_01',
@@ -251,12 +285,8 @@ def test_headless_blender_execution(script_path: str, require_balcony_railings: 
     Execute the generated Blender script in headless Blender 5.1 and inspect the generated 3D objects,
     collections, materials, wall heights, lintels, flooring, skirting, tiles, railings, and kitchen.
     """
-    print(f"\n=== [Test 3] Headless Blender 5.1 3D Model Verification ({os.path.basename(script_path)}) ===")
-    import glob
-    import shutil
-    cands = [os.environ.get('BLENDER_EXE'), shutil.which('blender')]
-    cands.extend(sorted(glob.glob(r"C:\Program Files\Blender Foundation\Blender*\blender.exe"), reverse=True))
-    blender_exe = next((c for c in cands if c and os.path.isfile(c)), None)
+    print(f"\n=== [Test 3] Headless Blender 3D Model Verification ({os.path.basename(script_path)}) ===")
+    blender_exe = _find_blender_exe()
     if not blender_exe:
         print("  SKIP: Blender executable not found on this machine")
         return {'skipped': True}
@@ -415,16 +445,20 @@ class TestCADBlenderUnrealSuite(unittest.TestCase):
         r2 = test_existing_project_plans_and_multi_reference()
         self.assertIn('3_Bhk_DXF', r2)
         self.assertIn('2BHK_Windgates_DXF', r2)
-        for key in ('3BHK_Flat_PNG_with_FBX_Ref', '3BHK_Type1_FBX_Direct', '3_Bhk_DXF'):
-            test_headless_blender_execution(r2[key]['script_path'], require_balcony_railings=True)
+        self.assertIn('3BHK_Spec_DOCX', r2)
+        self.assertIn('3BHK_Spec_PDF', r2)
+        for key in ('3BHK_Flat_PNG_with_Ref', '3BHK_Type1_FBX_Direct', '3_Bhk_DXF'):
+            if key in r2:
+                test_headless_blender_execution(r2[key]['script_path'], require_balcony_railings=True)
         test_headless_blender_execution(r2['2BHK_Windgates_DXF']['script_path'], require_balcony_railings=False)
 
 
 if __name__ == '__main__':
     r1 = test_synthetic_connectivity_and_opening_preservation()
     r2 = test_existing_project_plans_and_multi_reference()
-    r3_png = test_headless_blender_execution(r2['3BHK_Flat_PNG_with_FBX_Ref']['script_path'], require_balcony_railings=True)
-    r3_fbx = test_headless_blender_execution(r2['3BHK_Type1_FBX_Direct']['script_path'], require_balcony_railings=True)
+    r3_png = test_headless_blender_execution(r2['3BHK_Flat_PNG_with_Ref']['script_path'], require_balcony_railings=True)
+    if '3BHK_Type1_FBX_Direct' in r2:
+        r3_fbx = test_headless_blender_execution(r2['3BHK_Type1_FBX_Direct']['script_path'], require_balcony_railings=True)
     r3_dxf = test_headless_blender_execution(r2['3_Bhk_DXF']['script_path'], require_balcony_railings=True)
     r3_wg = test_headless_blender_execution(r2['2BHK_Windgates_DXF']['script_path'], require_balcony_railings=False)
     print("\nALL AUTOMATED TESTS PASSED SUCCESSFULLY.")
