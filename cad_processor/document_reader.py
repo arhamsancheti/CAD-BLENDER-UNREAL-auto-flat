@@ -316,8 +316,9 @@ def _picture_to_png(pic: dict, out_dir: str, idx: int) -> Optional[str]:
             bg.alpha_composite(im)
             im = bg
         im = im.convert('RGB')
+        from PIL import ImageStat
         g = im.convert('L')
-        if float(sum(g.getdata())) / (g.width * g.height) < 100.0:      # CAD screenshot: light lines on dark
+        if float(ImageStat.Stat(g).mean[0]) < 100.0:                    # CAD screenshot: light lines on dark
             from PIL import ImageOps
             im = ImageOps.invert(im)
         long_side = max(im.size)

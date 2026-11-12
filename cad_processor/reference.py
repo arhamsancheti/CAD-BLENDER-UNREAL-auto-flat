@@ -75,6 +75,19 @@ ext = in_path.lower().rsplit(".", 1)[-1]
 
 bpy.ops.wm.read_factory_settings(use_empty=True)
 if ext == "fbx":
+    try:
+        from io_scene_fbx import import_fbx
+        _orig_read_light = import_fbx.blen_read_light
+        def _safe_read_light(fbx_tmpl, fbx_obj, settings):
+            try:
+                return _orig_read_light(fbx_tmpl, fbx_obj, settings)
+            except AttributeError as e:
+                if "cast_shadow" in str(e):
+                    return None
+                raise
+        import_fbx.blen_read_light = _safe_read_light
+    except Exception:
+        pass
     bpy.ops.import_scene.fbx(filepath=in_path)
 elif ext == "obj":
     bpy.ops.wm.obj_import(filepath=in_path)

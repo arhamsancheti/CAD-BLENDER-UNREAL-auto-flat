@@ -247,7 +247,7 @@ def test_existing_project_plans_and_multi_reference() -> dict:
         ref_summary = None
         if opts.get('references'):
             refs = res.get('references', {}).get('results', [])
-            assert len(refs) == 1 and refs[0]['ok'], f"Reference comparison failed on {label}"
+            assert len(refs) == 1 and refs[0]['ok'], f"Reference comparison failed on {label}: {refs}"
             r0 = refs[0]
             assert r0['walls_confirmed'] >= 30, f"Too few confirmed walls: {r0['walls_confirmed']}"
             if r0.get('png_b64'):

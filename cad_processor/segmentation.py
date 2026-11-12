@@ -251,7 +251,8 @@ def segment(lines: List[Tuple[str, List[Tuple[float, float]], bool]], walls, mar
             if lines_p is not None:
                 used_lines = []
                 for lp in lines_p:
-                    x1_px, y1_px, x2_px, y2_px = lp[0]
+                    coords = np.asarray(lp).reshape(-1)
+                    x1_px, y1_px, x2_px, y2_px = int(coords[0]), int(coords[1]), int(coords[2]), int(coords[3])
                     x1_mm = x0 + x1_px * RES
                     y1_mm = y0 + (H - 1 - y1_px) * RES
                     x2_mm = x0 + x2_px * RES
